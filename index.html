@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashen — 为你的角色，写一首懂它的歌</title>
+<style>
+:root{
+  --bg:#0a0a0c; --bg2:#101013; --ink:#eceae6; --dim:#9a978f;
+  --line:#22222a; --ember:#d0865a; --ember-soft:#c9764a33;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+section{padding:120px 0;border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--ember);margin-bottom:22px}
+h2{font-size:34px;font-weight:600;letter-spacing:.02em;margin-bottom:16px;line-height:1.3}
+h2 .sub{display:block;font-size:15px;font-weight:400;color:var(--dim);letter-spacing:.02em;margin-top:14px}
+.reveal{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:20;backdrop-filter:blur(12px);
+  background:rgba(10,10,12,.6);border-bottom:1px solid transparent;transition:.4s}
+nav.scrolled{border-bottom:1px solid var(--line);background:rgba(10,10,12,.85)}
+.nav-in{max-width:1040px;margin:0 auto;padding:18px 28px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:19px;letter-spacing:.28em;font-weight:600}
+.logo span{color:var(--ember)}
+.nav-links{display:flex;gap:30px;font-size:13.5px;color:var(--dim)}
+.nav-links a{color:inherit;text-decoration:none;transition:.3s}
+.nav-links a:hover{color:var(--ink)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;border:none;
+  background:radial-gradient(900px 520px at 68% 30%, #1b140f 0%, rgba(27,20,15,0) 60%), var(--bg)}
+.hero::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(600px 300px at 72% 34%, var(--ember-soft), transparent 70%);pointer-events:none}
+.hero-in{position:relative;z-index:2}
+.hero h1{font-size:58px;line-height:1.2;font-weight:600;letter-spacing:.01em;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--ember)}
+.hero p.lead{margin-top:26px;font-size:17px;color:var(--dim);max-width:44ch}
+.badges{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.badge{font-size:12.5px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:6px 15px}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:40px;
+  background:var(--ember);color:#140d08;text-decoration:none;font-weight:600;font-size:15px;
+  padding:15px 30px;border-radius:8px;transition:.3s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 34px -12px var(--ember)}
+.cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:14px}
+@media(max-width:720px){.hero h1{font-size:40px}}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.card{border:1px solid var(--line);border-radius:14px;padding:30px 26px;background:var(--bg2);transition:.4s}
+.card:hover{transform:translateY(-4px);border-color:#3a2a20;background:#141014}
+.card .n{font-size:13px;color:var(--ember);letter-spacing:.1em;margin-bottom:16px}
+.card h3{font-size:18px;font-weight:600;margin-bottom:10px}
+.card p{font-size:14px;color:var(--dim)}
+.pro-line{margin-top:26px;font-size:13.5px;color:var(--dim)}
+.pro-line a{color:var(--ember);text-decoration:none;border-bottom:1px solid var(--ember-soft)}
+@media(max-width:720px){.cards{grid-template-columns:1fr}}
+
+/* works */
+.work{display:flex;align-items:center;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
+.work:first-of-type{border-top:1px solid var(--line)}
+.play{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid #3a2a20;color:var(--ember);
+  display:flex;align-items:center;justify-content:center;font-size:14px;transition:.3s;cursor:pointer}
+.work:hover .play{background:var(--ember);color:#140d08}
+.work-meta h4{font-size:17px;font-weight:600}
+.work-meta .ctx{font-size:13.5px;color:var(--dim);margin-top:4px}
+.work-tag{margin-left:auto;font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 13px;flex:none}
+@media(max-width:720px){.work-tag{display:none}}
+
+/* why */
+.why-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:start;margin-top:40px}
+.why-grid p.big{font-size:22px;line-height:1.6;font-weight:500}
+.why-grid p.big em{font-style:normal;color:var(--ember)}
+.creds{list-style:none;font-size:14.5px}
+.creds li{padding:12px 0;border-bottom:1px solid var(--line);color:var(--dim)}
+.creds li b{color:var(--ink);font-weight:600}
+@media(max-width:720px){.why-grid{grid-template-columns:1fr;gap:26px}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.step{padding:24px 20px;border:1px solid var(--line);border-radius:12px}
+.step .s{font-size:26px;color:var(--ember);font-weight:600}
+.step h4{font-size:15px;margin:12px 0 6px}
+.step p{font-size:13px;color:var(--dim)}
+.assure{margin-top:26px;font-size:14.5px;color:var(--dim)}
+.assure b{color:var(--ink)}
+@media(max-width:720px){.steps{grid-template-columns:1fr 1fr}}
+
+/* contact */
+.contact{text-align:center}
+.contact h2{font-size:40px}
+.contact p{color:var(--dim);max-width:38ch;margin:18px auto 34px}
+footer{padding:50px 0;text-align:center;color:#55534d;font-size:12.5px;border-top:1px solid var(--line)}
+footer span{color:var(--ember)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <div class="logo">ASH<span>EN</span></div>
+    <div class="nav-links">
+      <a href="#help">能帮你什么</a>
+      <a href="#works">作品</a>
+      <a href="#why">为什么是我</a>
+      <a href="#how">怎么合作</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <h1>给你的角色，<br>一首真正<em>懂它</em>的歌。</h1>
+    <p class="lead">独立音乐人。从一个想法、一个角色，到能直接发布的成品——写词、作曲、编曲、演唱，一个人替你全包。</p>
+    <div class="badges">
+      <span class="badge">VOCALOID P主</span>
+      <span class="badge">Ashen 世界观主理</span>
+      <span class="badge">感性声音 · 韩国大师课</span>
+    </div>
+    <div>
+      <a href="#contact" class="cta">说说你的企划 →</a>
+      <a href="#works" class="cta ghost">先听作品</a>
+    </div>
+  </div>
+</header>
+
+<section id="help">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">我能帮你做什么</div>
+      <h2>你只要有个想法，剩下交给我。<span class="sub">不用东找西找、不用协调一堆人。告诉我你的角色或企划，我把它变成一首完整的歌。</span></h2>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="n">01</div><h3>想给角色做一首完整的歌</h3><p>从零开始——词、曲、编曲、演唱到成品，一站到底，交付能直接发布的作品。</p></div>
+      <div class="card reveal"><div class="n">02</div><h3>已经有旋律或哼唱</h3><p>把你脑子里的调子，做成有完整编曲、能上架的样子。</p></div>
+      <div class="card reveal"><div class="n">03</div><h3>想让虚拟歌姬唱你的歌</h3><p>歌声调校到自然、动听，贴合角色的声音气质。</p></div>
+    </div>
+    <p class="pro-line reveal">作曲 · 编曲 · 混音 · 母带，这些环节我都亲自来。同行有专业单项需求？<a href="#contact">直接找我聊</a>。</p>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">听我的作品</div>
+      <h2>与其解释，不如你直接听。<span class="sub">每首都为一个具体的角色、情绪或世界而写。</span></h2>
+    </div>
+    <div class="reveal">
+      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>灰のユートピア</h4><div class="ctx">初音ミク · J-pop×Jazz Pop · 写给"在褪色时代里确认自我在场"的哲学小品</div></div><div class="work-tag">角色曲 · 抒情</div></div>
+      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>［样例 · 出道曲］</h4><div class="ctx">VTuber 出道单曲 · 明亮 Future Bass · 为人设量身定制的记忆点副歌</div></div><div class="work-tag">出道曲</div></div>
+      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>［样例 · 燃系 OP］</h4><div class="ctx">企划主题曲 · 铜管＋弦乐＋吉他 · 大编制的开场气势</div></div><div class="work-tag">OP · 燃</div></div>
+      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>［样例 · 暗色 Artcore］</h4><div class="ctx">原创企划 · 电子×文学 · 花譜／水槽 那一挂的暗色声线</div></div><div class="work-tag">烙印 · 暗色</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">为什么是我</div>
+      <h2>会做曲的人不少，<br>懂你的世界的没几个。</h2>
+    </div>
+    <div class="why-grid">
+      <p class="big reveal">我自己就是圈内的 P主，也在建自己的世界观 <em>Ashen</em>。所以我不只是"帮你做首曲子"——我懂二次元、懂角色、懂怎么用音乐去<em>服务一个人物、一个世界</em>。</p>
+      <ul class="creds reveal">
+        <li><b>VOCALOID P主</b> · 原创投稿 / 调校</li>
+        <li><b>Ashen 世界观</b> · 主题曲·角色曲·场景乐的完整实践</li>
+        <li><b>感性声音制作人课</b> · 系统的审美训练</li>
+        <li><b>韩国 RBW 大师课</b> · K-pop 工业级作曲营</li>
+        <li><b>全链路自持</b> · 词曲 / 编曲 / 混音 / 母带</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">怎么合作</div>
+      <h2>第一次委托？别担心，很简单。</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="s">1</div><h4>说想法</h4><p>告诉我你的角色、企划，或只是一种感觉。</p></div>
+      <div class="step reveal"><div class="s">2</div><h4>给方向</h4><p>我出方案和 demo 小样，让你先感受。</p></div>
+      <div class="step reveal"><div class="s">3</div><h4>满意再定</h4><p>方向对了才继续，全程可听、可调。</p></div>
+      <div class="step reveal"><div class="s">4</div><h4>交付</h4><p>交你一首能直接发布的成品。</p></div>
+    </div>
+    <p class="assure reveal"><b>新手也欢迎</b>——先听 demo 再决定，方向不对不硬来。哪怕你只有个模糊的想法，我也能陪你把它捋清楚。</p>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">开始</div>
+      <h2>把你的角色，交给懂它的人。</h2>
+      <p>哪怕只有一个模糊的念头，也可以来找我聊聊。</p>
+      <a href="#" class="cta">联系我 / 开始委托 →</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 <span>ASHEN</span> · Msz — 音乐委托 · 原型 v1</footer>
+
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3*80)+'ms';io.observe(el)});
+</script>
+</body>
+</html>
