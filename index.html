@@ -1,222 +1,758 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ashen — 为你的角色，写一首懂它的歌</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mszook 曲师约稿 · 为你的角色定制专属音乐</title>
+<meta name="description" content="独立音乐人 Mszook 的个人约稿主场。VOCALOID P主 · ACG/二次元 角色曲、印象曲、企划曲全流程定制——从一个角色、一段情绪，到能直接发布的成品，一个人全包。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>✦</text></svg>">
+<!-- 分享卡片：QQ / 微信 / B站 粘贴链接时的预览 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mszook 曲师约稿 · 为你的角色定制专属音乐">
+<meta property="og:description" content="从一个角色、一段情绪，到能直接发布的成品，一个人全包。">
+<meta property="og:image" content="uploads/banner-low.png">
+<meta name="theme-color" content="#f3e8d1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<!-- 字体走 Google Fonts；国内可能慢/加载不出，会自动回退到系统衬线体。见 DEPLOY.md「字体」一节可换国内镜像。 -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Noto+Serif+SC:wght@400;500;600;700;900&amp;family=Shippori+Mincho:wght@500;700&amp;display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0a0a0c; --bg2:#101013; --ink:#eceae6; --dim:#9a978f;
-  --line:#22222a; --ember:#d0865a; --ember-soft:#c9764a33;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);color:var(--ink);
-  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
-  line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
-section{padding:120px 0;border-top:1px solid var(--line)}
-.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--ember);margin-bottom:22px}
-h2{font-size:34px;font-weight:600;letter-spacing:.02em;margin-bottom:16px;line-height:1.3}
-h2 .sub{display:block;font-size:15px;font-weight:400;color:var(--dim);letter-spacing:.02em;margin-top:14px}
-.reveal{opacity:0;transform:translateY(24px);transition:all .9s cubic-bezier(.16,1,.3,1)}
-.reveal.in{opacity:1;transform:none}
-
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:20;backdrop-filter:blur(12px);
-  background:rgba(10,10,12,.6);border-bottom:1px solid transparent;transition:.4s}
-nav.scrolled{border-bottom:1px solid var(--line);background:rgba(10,10,12,.85)}
-.nav-in{max-width:1040px;margin:0 auto;padding:18px 28px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:19px;letter-spacing:.28em;font-weight:600}
-.logo span{color:var(--ember)}
-.nav-links{display:flex;gap:30px;font-size:13.5px;color:var(--dim)}
-.nav-links a{color:inherit;text-decoration:none;transition:.3s}
-.nav-links a:hover{color:var(--ink)}
-@media(max-width:720px){.nav-links{display:none}}
-
-/* hero */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;border:none;
-  background:radial-gradient(900px 520px at 68% 30%, #1b140f 0%, rgba(27,20,15,0) 60%), var(--bg)}
-.hero::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(600px 300px at 72% 34%, var(--ember-soft), transparent 70%);pointer-events:none}
-.hero-in{position:relative;z-index:2}
-.hero h1{font-size:58px;line-height:1.2;font-weight:600;letter-spacing:.01em;max-width:15ch}
-.hero h1 em{font-style:normal;color:var(--ember)}
-.hero p.lead{margin-top:26px;font-size:17px;color:var(--dim);max-width:44ch}
-.badges{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
-.badge{font-size:12.5px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:6px 15px}
-.cta{display:inline-flex;align-items:center;gap:10px;margin-top:40px;
-  background:var(--ember);color:#140d08;text-decoration:none;font-weight:600;font-size:15px;
-  padding:15px 30px;border-radius:8px;transition:.3s}
-.cta:hover{transform:translateY(-2px);box-shadow:0 12px 34px -12px var(--ember)}
-.cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:14px}
-@media(max-width:720px){.hero h1{font-size:40px}}
-
-/* cards */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
-.card{border:1px solid var(--line);border-radius:14px;padding:30px 26px;background:var(--bg2);transition:.4s}
-.card:hover{transform:translateY(-4px);border-color:#3a2a20;background:#141014}
-.card .n{font-size:13px;color:var(--ember);letter-spacing:.1em;margin-bottom:16px}
-.card h3{font-size:18px;font-weight:600;margin-bottom:10px}
-.card p{font-size:14px;color:var(--dim)}
-.pro-line{margin-top:26px;font-size:13.5px;color:var(--dim)}
-.pro-line a{color:var(--ember);text-decoration:none;border-bottom:1px solid var(--ember-soft)}
-@media(max-width:720px){.cards{grid-template-columns:1fr}}
-
-/* works */
-.work{display:flex;align-items:center;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
-.work:first-of-type{border-top:1px solid var(--line)}
-.play{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid #3a2a20;color:var(--ember);
-  display:flex;align-items:center;justify-content:center;font-size:14px;transition:.3s;cursor:pointer}
-.work:hover .play{background:var(--ember);color:#140d08}
-.work-meta h4{font-size:17px;font-weight:600}
-.work-meta .ctx{font-size:13.5px;color:var(--dim);margin-top:4px}
-.work-tag{margin-left:auto;font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 13px;flex:none}
-@media(max-width:720px){.work-tag{display:none}}
-
-/* why */
-.why-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:start;margin-top:40px}
-.why-grid p.big{font-size:22px;line-height:1.6;font-weight:500}
-.why-grid p.big em{font-style:normal;color:var(--ember)}
-.creds{list-style:none;font-size:14.5px}
-.creds li{padding:12px 0;border-bottom:1px solid var(--line);color:var(--dim)}
-.creds li b{color:var(--ink);font-weight:600}
-@media(max-width:720px){.why-grid{grid-template-columns:1fr;gap:26px}}
-
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
-.step{padding:24px 20px;border:1px solid var(--line);border-radius:12px}
-.step .s{font-size:26px;color:var(--ember);font-weight:600}
-.step h4{font-size:15px;margin:12px 0 6px}
-.step p{font-size:13px;color:var(--dim)}
-.assure{margin-top:26px;font-size:14.5px;color:var(--dim)}
-.assure b{color:var(--ink)}
-@media(max-width:720px){.steps{grid-template-columns:1fr 1fr}}
-
-/* contact */
-.contact{text-align:center}
-.contact h2{font-size:40px}
-.contact p{color:var(--dim);max-width:38ch;margin:18px auto 34px}
-footer{padding:50px 0;text-align:center;color:#55534d;font-size:12.5px;border-top:1px solid var(--line)}
-footer span{color:var(--ember)}
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ background:#f3e8d1; color:#5c4832; font-family:"Noto Serif SC",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a{ color:#b8892f; text-decoration:none; }
+  a:hover{ color:#8c6520; }
+  ::selection{ background:rgba(50,44,99,.22); color:#3c2a1a; }
+  summary::-webkit-details-marker{ display:none; }
+  summary::marker{ content:''; }
+  details[open] summary span[data-caret]{ transform:rotate(90deg); }
+  @keyframes spinCW{ from{ transform:rotate(0) } to{ transform:rotate(360deg) } }
+  @keyframes spinCCW{ from{ transform:rotate(0) } to{ transform:rotate(-360deg) } }
+  @keyframes twinkle{ 0%,100%{ opacity:.3; transform:scale(.85) } 50%{ opacity:.9; transform:scale(1.12) } }
+  @keyframes floatY{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-12px) } }
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="nav-in">
-    <div class="logo">ASH<span>EN</span></div>
-    <div class="nav-links">
-      <a href="#help">能帮你什么</a>
-      <a href="#works">作品</a>
-      <a href="#why">为什么是我</a>
-      <a href="#how">怎么合作</a>
-      <a href="#contact">联系</a>
+<div style="position:relative; width:100%; --parch:#f3e8d1; --panel:#fbf4e4; --panel2:#f1e7cf; --ink:#3c2a1a; --body:#5c4832; --muted:#8a7355; --line:#dcc79a; --gold:#b8892f; --goldL:#dcb85a; --indigo:#322c63; --pink:#d97ba8; --hl:#322c63; --glowA:#fbf1da; --glowB:#ecdfc2;">
+
+  <!-- NAV -->
+  <nav id="v3nav" style="position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px clamp(20px,5vw,60px); transition:background .4s, box-shadow .4s, border-color .4s; border-bottom:1px solid transparent;">
+    <a href="#top" style="display:flex; align-items:center; gap:10px; color:var(--ink);">
+      <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; border:1.5px solid var(--gold); color:var(--gold); font-size:15px;">✦</span>
+      <span style="font-family: 'Noto Serif SC',serif; font-weight: 900; font-size: 20px; letter-spacing: .04em; color: var(--ink)">Mszook 约稿介绍</span>
+    </a>
+    <div style="display:flex; align-items:center; gap:clamp(12px,2.2vw,30px); flex-wrap:wrap; justify-content:flex-end;">
+      <a data-navlink="" href="#works" style="font-size:14px; letter-spacing:.06em; color:var(--body);">作品试听</a>
+      <a data-navlink="" href="#about" style="font-size:14px; letter-spacing:.06em; color:var(--body);">曲师介绍</a>
+      <a data-navlink="" href="#process" style="font-size:14px; letter-spacing:.06em; color:var(--body);">流程说明</a>
+      <a data-open-modal="" href="#contact" style="display: inline-flex; align-items: center; gap: 7px; font-size: 14px; letter-spacing: .04em; color: var(--goldL); background: var(--indigo); padding: 10px 20px; border-radius: 4px; border: 1px solid var(--gold); font-weight: 700">立刻委托 ✦</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" style="position:relative; overflow:hidden; padding:120px clamp(20px,5vw,60px) clamp(56px,8vh,100px); background:radial-gradient(120% 90% at 80% 0%, var(--glowA,#f4e9cd) 0%, rgba(0,0,0,0) 55%), radial-gradient(100% 100% at 10% 100%, var(--glowB,#e4d3ab) 0%, rgba(0,0,0,0) 60%), var(--parch);">
+    <div data-runes="" style="position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.5;">
+      <div style="position:absolute; top:8%; left:-60px; width:280px; height:280px; border-radius:50%; border:1.5px dashed rgba(60,42,26,.4); animation:spinCW 90s linear infinite;">
+        <div style="position:absolute; inset:26px; border-radius:50%; border:1px solid rgba(60,42,26,.32);"></div>
+        <div style="position:absolute; inset:60px; border-radius:50%; border:1px dotted rgba(60,42,26,.4);"></div>
+      </div>
+      <div style="position:absolute; bottom:-70px; right:8%; width:340px; height:340px; border-radius:50%; border:1.5px dashed rgba(60,42,26,.34); animation:spinCCW 120s linear infinite;">
+        <div style="position:absolute; inset:34px; border-radius:50%; border:1px dotted rgba(60,42,26,.34);"></div>
+      </div>
+      <span style="position:absolute; top:18%; right:30%; color:rgba(60,42,26,.5); font-size:30px;">✶</span>
+      <span style="position:absolute; top:60%; left:16%; color:rgba(60,42,26,.45); font-size:22px;">✦</span>
+      <span style="position:absolute; bottom:22%; left:42%; color:rgba(60,42,26,.4); font-size:18px;">✧</span>
+    </div>
+    <div data-runes="" style="position:absolute; inset:0; pointer-events:none; z-index:1;">
+      <span style="position:absolute; top:30%; left:31%; color:var(--gold); font-size:15px; animation:twinkle 2.8s ease-in-out infinite;">✦</span>
+      <span style="position:absolute; top:45%; left:7%; color:var(--pink); font-size:13px; animation:twinkle 3.4s ease-in-out infinite .6s;">✧</span>
+      <span style="position:absolute; top:15%; left:39%; color:var(--pink); font-size:20px; animation:floatY 5s ease-in-out infinite;">♪</span>
+      <span style="position:absolute; bottom:20%; right:27%; color:var(--gold); font-size:18px; animation:floatY 6s ease-in-out infinite .5s;">♫</span>
+      <span style="position:absolute; top:52%; right:15%; color:var(--gold); font-size:13px; animation:twinkle 3s ease-in-out infinite .3s;">✦</span>
+      <span style="position:absolute; top:74%; left:22%; color:var(--pink); font-size:12px; animation:twinkle 2.6s ease-in-out infinite .9s;">✦</span>
+    </div>
+
+    <div style="position:relative; z-index:2; max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(30px,4vw,58px); align-items:center;">
+      <div>
+        <div data-status="" style="display:inline-flex; align-items:center; gap:8px; background:rgba(50,44,99,.08); border:1px solid var(--gold); color:var(--ink); padding:7px 16px; border-radius:999px; font-size:13px; letter-spacing:.08em; margin-bottom:26px;">
+          <span style="width:7px; height:7px; border-radius:50%; background:#3f9b63; box-shadow:0 0 0 3px rgba(63,155,99,.25);"></span><span data-status-text="">接稿中 · 委托开放</span>
+        </div>
+        <div style="font-family:'Cinzel',serif; letter-spacing:.32em; font-size:12px; color:var(--gold); margin-bottom:18px;">INDIE MUSICIAN · VOCALOID P · ASHEN Records</div>
+        <h1 style="font-family: 'Noto Serif SC',serif; font-weight: 900; font-size: clamp(42px,7.4vw,92px); line-height: 1.18; color: var(--ink); letter-spacing: .02em;">曲师约稿，<br>定制<br><span style="color: var(--hl,#322c63); position: relative;">您专属的<br>音乐世界</span>。</h1>
+        <p style="margin-top:24px; max-width:470px; font-size:clamp(15px,1.6vw,17.5px); line-height:2; color:var(--body);">任何简单的想法 —— 一个角色、一段情绪、一个故事等等，都放心交给我，我会权利谱写您心中独一无二的乐章。</p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:36px;">
+          <a data-open-modal="" href="#contact" style="display: inline-flex; align-items: center; gap: 9px; background: var(--indigo); color: var(--goldL); border: 1px solid var(--gold); font-size: 16px; letter-spacing: .03em; padding: 16px 32px; border-radius: 5px; box-shadow: 0 14px 30px rgba(50,44,99,.28); font-weight: 800">立刻委托 <span>✦</span></a>
+          <button data-hero-listen="" style="display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--ink); border: 1px solid var(--line); font-size: 15px; padding: 15px 24px; border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: 500">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: rgb(255, 255, 255); font-size: 10px;">▶</span>
+            试听作品<span style="font-family: &quot;Shippori Mincho&quot;, serif;">灰のユートピア</span>
+          </button>
+        </div>
+      </div>
+
+      <div style="position:relative; justify-self:center; width:min(100%,520px);">
+        <div data-runes="" style="position:absolute; inset:-8% -6%; z-index:0; pointer-events:none;">
+          <div style="position:absolute; inset:0; border-radius:50%; border:1.5px solid rgba(50,44,99,.25); animation:spinCW 60s linear infinite;">
+            <div style="position:absolute; inset:18px; border-radius:50%; border:1px dashed rgba(184,137,47,.5);"></div>
+          </div>
+          <span style="position:absolute; top:-4%; left:48%; color:var(--gold); font-size:22px; animation:twinkle 3s ease-in-out infinite;">✦</span>
+          <span style="position:absolute; bottom:2%; right:6%; color:var(--pink); font-size:18px; animation:twinkle 2.6s ease-in-out infinite .5s;">✧</span>
+        </div>
+        <div style="position:relative; z-index:2; padding:10px; background:linear-gradient(135deg, var(--goldL), var(--gold)); border-radius:14px; box-shadow:0 26px 54px rgba(50,44,99,.3);">
+          <div style="position:relative; border-radius:9px; overflow:hidden; aspect-ratio:19/10; background:var(--parch);">
+            <!-- 形象图：换成你的图就改 uploads/banner-low.png -->
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:40px;">✦</span>
+            <img src="uploads/banner-low.png" alt="Mszook 形象图" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+        </div>
+        <div style="position: absolute; z-index: 3; bottom: -12px; left: 50%; transform: translateX(-50%); background: var(--indigo); color: var(--goldL); font-family: Georgia; letter-spacing: .16em; font-size: 13px; padding: 7px 20px; border-radius: 999px; border: 1px solid var(--gold); white-space: nowrap; font-weight: 500; padding-top: 6px; padding-bottom: 6px; padding-left: 23px; padding-right: 23px; border-width: 1px">✦ 音乐制作人 Mszook ✦</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- DIVIDER -->
+  <div style="max-width:1160px; margin:0 auto; padding:6px clamp(20px,5vw,60px);">
+    <div style="display:flex; align-items:center; gap:18px; color:var(--gold);">
+      <span style="height:1px; flex:1; background:linear-gradient(90deg, transparent, var(--line));"></span>
+      <span style="font-size:13px; letter-spacing:.4em;">✦ ✧ ✦</span>
+      <span style="height:1px; flex:1; background:linear-gradient(90deg, var(--line), transparent);"></span>
     </div>
   </div>
-</nav>
 
-<header class="hero">
-  <div class="wrap hero-in">
-    <h1>给你的角色，<br>一首真正<em>懂它</em>的歌。</h1>
-    <p class="lead">独立音乐人。从一个想法、一个角色，到能直接发布的成品——写词、作曲、编曲、演唱，一个人替你全包。</p>
-    <div class="badges">
-      <span class="badge">VOCALOID P主</span>
-      <span class="badge">Ashen 世界观主理</span>
-      <span class="badge">感性声音 · 韩国大师课</span>
+  <!-- 1. 我能帮你做什么 -->
+  <section id="help" style="position:relative; max-width:1160px; margin:0 auto; padding:clamp(66px,10vh,120px) clamp(20px,5vw,60px);">
+    <div data-reveal="" style="text-align:center; max-width:640px; margin:0 auto 8px;">
+      <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">INCANTATIONS<span style="letter-spacing: 3.6px;"> ·&nbsp;项目介绍</span></div>
+      <h2 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(30px,4.6vw,52px); color:var(--ink); line-height:1.35; margin-top:14px;">微小的灵感火花，或是完整的音乐企划，都放心交给我</h2>
+      <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:16px; color:var(--gold);"><span style="height:1px; width:40px; background:var(--gold);"></span>✦<span style="height:1px; width:40px; background:var(--gold);"></span></div>
     </div>
-    <div>
-      <a href="#contact" class="cta">说说你的企划 →</a>
-      <a href="#works" class="cta ghost">先听作品</a>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:22px; margin-top:44px;">
+      <div data-reveal="" data-reveal-delay="0" style="position:relative; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:38px 30px 32px; box-shadow:0 12px 28px rgba(50,44,99,.1); transition:transform .4s;">
+        <div style="font-family:'Cinzel',serif; font-size:34px; color:var(--gold); line-height:1;">I</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:20px; color:var(--ink); margin:16px 0 12px; line-height:1.5;">Vtuber / 唱见 / 偶像 原创曲</h3>
+        <p style="font-size:14.5px; line-height:1.95; color:var(--body);">哪怕只是手机里一段哼唱、一句旋律的雏形，我帮你补齐成一首真正能发的作品。</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="90" style="position:relative; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:38px 30px 32px; box-shadow:0 12px 28px rgba(50,44,99,.1); transition:transform .4s;">
+        <div style="font-family:'Cinzel',serif; font-size:34px; color:var(--gold); line-height:1;">II</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:20px; color:var(--ink); margin:16px 0 12px; line-height:1.5;">OC / 同人 角色印象曲</h3>
+        <p style="font-size:14.5px; line-height:1.95; color:var(--body);">你有一个角色、一个企划、一个世界。告诉我它是谁、此刻在想什么，我把它谱成歌。</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="180" style="position:relative; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:38px 30px 32px; box-shadow:0 12px 28px rgba(50,44,99,.1); transition:transform .4s;">
+        <div style="font-family:'Cinzel',serif; font-size:34px; color:var(--gold); line-height:1;">III</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:20px; color:var(--ink); margin:16px 0 12px; line-height:1.5;">VOCALOID 企划</h3>
+        <p style="font-size:14.5px; line-height:1.95; color:var(--body);">初音未来或其他歌姬来演绎你的故事——从调校到成品，我懂怎么让它唱得有感情。</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="180" style="position:relative; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:38px 30px 32px; box-shadow:0 12px 28px rgba(50,44,99,.1); transition:transform .4s;">
+        <div style="font-family:'Cinzel',serif; font-size:34px; color:var(--gold); line-height:1;">IV</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:20px; color:var(--ink); margin:16px 0 12px; line-height:1.5;">游戏/视频配乐</h3>
+        <p style="font-size:14.5px; line-height:1.95; color:var(--body);">为您的游戏创作配乐、设计音效，打造极致的听觉盛宴。亦或是为您的视频定制专属 BGM 等，让音乐成为您独特的标识。</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="180" style="position:relative; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:38px 30px 32px; box-shadow:0 12px 28px rgba(50,44,99,.1); transition:transform .4s;">
+        <div style="font-family:'Cinzel',serif; font-size:34px; color:var(--gold); line-height:1;">V</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:20px; color:var(--ink); margin:16px 0 12px; line-height:1.5;">贴唱/伴奏定制</h3>
+        <p style="font-size:14.5px; line-height:1.95; color:var(--body);">为您的游戏创作配乐、设计音效，打造极致的听觉盛宴。亦或是为您的视频定制专属 BGM 等，让音乐成为您独特的标识。</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="180" style="position:relative; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:38px 30px 32px; box-shadow:0 12px 28px rgba(50,44,99,.1); transition:transform .4s;">
+        <div style="font-family:'Cinzel',serif; font-size:34px; color:var(--gold); line-height:1;">VI</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:20px; color:var(--ink); margin:16px 0 12px; line-height:1.5;">任何音乐制作需求</h3>
+        <p style="font-size:14.5px; line-height:1.95; color:var(--body);">作词、作曲、编曲、录音、修音、混音、母带等音乐制作需求，您有需要随时委托。</p>
+      </div>
+    </div>
+    <div data-reveal="" style="display:flex; justify-content:center; margin-top:28px;">
+      <p style="font-size:13.5px; letter-spacing:.02em; color:var(--muted); text-align:center;">词曲 · 编曲 · 混音 · 母带全流程制作　✦　从入门定制到专业需求，都能承包</p>
+    </div>
+  </section>
+
+  <!-- 2. 作品 -->
+  <section id="works" style="position:relative; padding:clamp(60px,9vh,110px) clamp(20px,5vw,60px); background:var(--panel2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div style="max-width:1120px; margin:0 auto;">
+      <div data-reveal="" style="text-align: center; max-width: 640px; margin: 0 auto 44px; margin-bottom: 50px">
+        <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">EXISTED WORKS · 作品集</div>
+        <h2 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(30px,4.6vw,52px); color:var(--ink); line-height:1.35; margin-top:14px;">试听个人作品，<br>了解我合作参与的项目</h2>
+        <p style="margin-top:12px; font-size:15px; line-height:1.85; color:var(--body);">每一首都反复精雕打磨，追求极致的音乐表现。拒绝工业模板化制作，下一首永远是更好</p>
+      </div>
+
+      <!-- REAL TRACK 1 —— 放好 audio/hai-no-utopia.mp3 即可真实播放；没有文件时自动退化为演示进度条 -->
+      <div data-reveal="" data-track="" data-duration="218" data-audio="audio/hai-no-utopia.mp3" style="position: relative; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: clamp(20px,3vw,32px); box-shadow: 0 20px 44px rgba(50,44,99,.16); margin-bottom: 50px">
+        <span style="position:absolute; top:-13px; left:26px; background:var(--indigo); color:var(--goldL); font-family:'Cinzel',serif; letter-spacing:.12em; font-size:12px; padding:6px 16px; border-radius:4px; border:1px solid var(--gold);">✦ 代表作</span>
+        <div style="display:flex; gap:clamp(18px,3vw,30px); align-items:center; flex-wrap:wrap;">
+          <div style="position:relative; flex:0 0 auto; width:clamp(118px,20vw,158px); aspect-ratio:1; border-radius:8px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 10px 22px rgba(50,44,99,.24); background:var(--indigo);">
+            <!-- 封面：放 uploads/cover-hai.jpg -->
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--goldL); font-size:30px;">✦</span>
+            <img src="uploads/cover-hai.jpg" alt="灰のユートピア 封面" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="flex:1 1 300px; min-width:250px;">
+            <h3 style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:clamp(23px,2.7vw,32px); color:var(--ink);">灰のユートピア</h3>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:11px;">
+              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">初音ミク</span>
+              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">暗色 J-pop</span>
+              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">Jazz Pop</span>
+            </div>
+            <p style="margin-top:14px; font-size:14px; line-height:1.85; color:var(--body); max-width:520px;">写给在废墟里还想唱歌的人——「Ashen」世界观的起点。</p>
+            <div style="display:flex; align-items:center; gap:14px; margin-top:20px;">
+              <button data-play="" style="flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border-radius:50%; background:var(--indigo); color:var(--goldL); border:1px solid var(--gold); cursor:pointer; font-size:15px; transition:transform .2s;">▶</button>
+              <div style="flex:1 1 auto;">
+                <div data-bar="" style="position:relative; height:6px; background:rgba(50,44,99,.14); border-radius:999px; cursor:pointer;">
+                  <div data-fill="" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--gold),var(--goldL)); border-radius:999px;"></div>
+                  <div data-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:13px; color:var(--gold); opacity:0; transition:opacity .2s;">✦</div>
+                </div>
+              </div>
+              <div data-time="" style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted); min-width:82px; text-align:right;">0:00 / 3:38</div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+              <!-- TODO: 换成完整版链接 -->
+              <a href="#" target="_blank" rel="noopener" style="font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;">网易云 ↗</a>
+              <a href="#" target="_blank" rel="noopener" style="font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;">Bilibili ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REAL TRACK 2 —— 放好 audio/lament.mp3 即可真实播放 -->
+      <div data-reveal="" data-track="" data-duration="218" data-audio="audio/lament.mp3" style="position: relative; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: clamp(20px,3vw,32px); box-shadow: 0 20px 44px rgba(50,44,99,.16); margin-bottom: 50px">
+        <span style="position:absolute; top:-13px; left:26px; background:var(--indigo); color:var(--goldL); font-family:'Cinzel',serif; letter-spacing:.12em; font-size:12px; padding:6px 16px; border-radius:4px; border:1px solid var(--gold);">✦ 客单展示</span>
+        <div style="display:flex; gap:clamp(18px,3vw,30px); align-items:center; flex-wrap:wrap;">
+          <div style="position:relative; flex:0 0 auto; width:clamp(118px,20vw,158px); aspect-ratio:1; border-radius:8px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 10px 22px rgba(50,44,99,.24); background:var(--indigo);">
+            <!-- 封面：放 uploads/cover-lament.jpg -->
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--goldL); font-size:30px;">✦</span>
+            <img src="uploads/cover-lament.jpg" alt="Lament of Broken Ideals 封面" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="flex:1 1 300px; min-width:250px;">
+            <h3 style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:clamp(23px,2.7vw,32px); color:var(--ink);">Lament of Broken Ideals</h3>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:11px;">
+              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">赛尔号 - 不死魂王 同人曲</span>
+              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">电子音乐</span><span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">音游风</span>
+              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">ArtCore</span>
+            </div>
+            <!-- TODO: 这句文案是从上一首复制过来的，记得改成这首的介绍 -->
+            <p style="margin-top:14px; font-size:14px; line-height:1.85; color:var(--body); max-width:520px;">写给在废墟里还想唱歌的人——「Ashen」世界观的起点。</p>
+            <div style="display:flex; align-items:center; gap:14px; margin-top:20px;">
+              <button data-play="" style="flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border-radius:50%; background:var(--indigo); color:var(--goldL); border:1px solid var(--gold); cursor:pointer; font-size:15px; transition:transform .2s;">▶</button>
+              <div style="flex:1 1 auto;">
+                <div data-bar="" style="position:relative; height:6px; background:rgba(50,44,99,.14); border-radius:999px; cursor:pointer;">
+                  <div data-fill="" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--gold),var(--goldL)); border-radius:999px;"></div>
+                  <div data-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:13px; color:var(--gold); opacity:0; transition:opacity .2s;">✦</div>
+                </div>
+              </div>
+              <div data-time="" style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted); min-width:82px; text-align:right;">0:00 / 3:38</div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+              <!-- TODO: 换成完整版链接 -->
+              <a href="#" target="_blank" rel="noopener" style="font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;">Bilibili ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDERS -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+        <div data-reveal="" data-reveal-delay="0" style="display:flex; gap:16px; align-items:center; background:transparent; border:1px dashed var(--line); border-radius:10px; padding:20px;">
+          <div style="flex:0 0 auto; width:64px; height:64px; border-radius:8px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel',serif; font-size:22px;">II</div>
+          <div><h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:16px; color:var(--ink);">虚位以待</h3><p style="margin-top:5px; font-size:13px; line-height:1.6; color:var(--muted);">下一首，也许就是为你的角色写的。</p></div>
+        </div>
+        <div data-reveal="" data-reveal-delay="90" style="display:flex; gap:16px; align-items:center; background:transparent; border:1px dashed var(--line); border-radius:10px; padding:20px;">
+          <div style="flex:0 0 auto; width:64px; height:64px; border-radius:8px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel',serif; font-size:22px;">III</div>
+          <div><h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:16px; color:var(--ink);">虚位以待</h3><p style="margin-top:5px; font-size:13px; line-height:1.6; color:var(--muted);">你的创意，可以在这里长成一首歌。</p></div>
+        </div>
+        <div data-reveal="" data-reveal-delay="180" style="display:flex; gap:16px; align-items:center; background:transparent; border:1px dashed var(--line); border-radius:10px; padding:20px;">
+          <div style="flex:0 0 auto; width:64px; height:64px; border-radius:8px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel',serif; font-size:20px;">IV</div>
+          <div><h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:16px; color:var(--ink);">敬请期待</h3><p style="margin-top:5px; font-size:13px; line-height:1.6; color:var(--muted);">让歌姬唱的下一个故事，等你来讲。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 术者档案 -->
+  <section id="about" style="position:relative; overflow:hidden; padding:clamp(66px,10vh,120px) clamp(20px,5vw,60px);">
+    <div style="max-width:1060px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(36px,5vw,68px); align-items:center;">
+      <div data-reveal="" style="position:relative; justify-self:center; width:min(100%,320px);">
+        <div data-runes="" style="position:absolute; inset:-12%; z-index:0; pointer-events:none;">
+          <div style="position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(184,137,47,.5); animation:spinCCW 80s linear infinite;"></div>
+          <span style="position:absolute; top:-2%; right:14%; color:var(--pink); font-size:20px; animation:twinkle 3s ease-in-out infinite;">✧</span>
+        </div>
+        <div style="position:relative; z-index:2; padding:8px; background:linear-gradient(135deg,var(--goldL),var(--gold)); border-radius:50%; box-shadow:0 20px 46px rgba(50,44,99,.3);">
+          <div style="position:relative; border-radius:50%; overflow:hidden; aspect-ratio:1; background:var(--indigo);">
+            <!-- 头像：放 uploads/avatar.jpg -->
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--goldL); font-size:44px;">✦</span>
+            <img src="uploads/avatar.jpg" alt="Mszook 头像" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+        </div>
+      </div>
+      <div data-reveal="">
+        <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">THE concept · 创作理念</div>
+        <h2 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(28px,4.2vw,48px); color:var(--ink); line-height:1.4; margin-top:14px;">会做曲的人不少，<br>懂你想法的才最为珍贵</h2>
+        <p style="margin-top:18px; max-width:440px; font-size:15px; line-height:2; color:var(--body);">您好，我是音乐制作人 Mszook ，我将负责您的音乐制作委托。<br><br>从开始音乐制作，我就在原创曲、印象曲领域活动。深谙 ACG、VOCALOID、同人创作等文化，所以我一定比市面上绝大多数的制作人更懂您的需求。<br><br>我致力于打造符合您角色设定、世界观、故事内容的乐曲，作品不会千篇一律与同质化；同时又能凭借我扎实的音乐审美与制作功底，让您的曲目能被更多听众喜爱，拥有市场与大量受众。<br><br>我自己也是创作者，也有自己的 OC、自己的世界观「Ashen」——所以我很清楚，您愿意付出时间精力的音乐想法有多重要。<br><br>在合作中，我往往对作品质量要求比您还严苛，这是我的创作态度与底线，所以关于作品质量，您大可放心。<br><br>你的 OC、同人、世界观都应该发出世上独一无二的频响，我很期待与您携手将他们变为现实。让我们一起做些伟大的事情吧！</p>
+        <div style="display:flex; flex-direction:column; gap:2px; margin-top:24px;">
+          <div style="display:flex; gap:14px; align-items:baseline; padding:13px 4px; border-bottom:1px solid var(--line);"><span style="flex:0 0 auto; color:var(--gold); font-family:'Cinzel',serif; font-size:14px;">✦</span><span style="font-size:15px; color:var(--ink);">VOCALOID P主 身份活动中 · 7 年独立制作发行经验</span></div>
+          <div style="display:flex; gap:14px; align-items:baseline; padding:13px 4px; border-bottom:1px solid var(--line);"><span style="flex:0 0 auto; color:var(--gold); font-family:'Cinzel',serif; font-size:14px;">✦</span><span style="font-size:15px; color:var(--ink);">深谙 ACG、二次元、同人文化，更懂委托作品对您的重要意义</span></div>
+          <div style="display:flex; gap:14px; align-items:baseline; padding:13px 4px; border-bottom:1px solid var(--line);"><span style="flex:0 0 auto; color:var(--gold); font-family:'Cinzel',serif; font-size:14px;">✦</span><span style="font-size:15px; color:var(--ink);">发行级别的歌曲水准，业界前沿的音乐制作水平</span></div>
+          <div style="display:flex; gap:14px; align-items:baseline; padding:13px 4px;"><span style="flex:0 0 auto; color:var(--gold); font-family:'Cinzel',serif; font-size:14px;">✦</span><span style="font-size:15px; color:var(--ink);">作词 / 作曲 / 编曲 / 混音 / 母带 全能选手</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 缔约流程 -->
+  <section id="process" style="position:relative; padding:clamp(66px,10vh,120px) clamp(20px,5vw,60px); background:var(--panel2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div style="max-width:1080px; margin:0 auto;">
+      <div data-reveal="" style="text-align:center; max-width:600px; margin:0 auto 46px;">
+        <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">THE RITUAL · 合作流程</div>
+        <h2 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(30px,4.6vw,52px); color:var(--ink); line-height:1.35; margin-top:14px;">流程简单高效，<br>您尽情创造，我负责实现</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(212px,1fr)); gap:20px;">
+        <div data-reveal="" data-reveal-delay="0" style="background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:30px 24px; text-align:center; box-shadow:0 12px 26px rgba(50,44,99,.1);">
+          <div style="width:56px; height:56px; margin:0 auto 16px; border-radius:50%; border:1.5px solid var(--gold); color:var(--gold); font-family:'Cinzel',serif; font-size:22px; display:flex; align-items:center; justify-content:center;">I</div>
+          <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:18px; color:var(--ink);">初步交流</h3>
+          <p style="margin-top:10px; font-size:13.5px; line-height:1.8; color:var(--body);">把角色、企划、情绪丢给我，模糊也没关系。</p>
+        </div>
+        <div data-reveal="" data-reveal-delay="90" style="background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:30px 24px; text-align:center; box-shadow:0 12px 26px rgba(50,44,99,.1);">
+          <div style="width:56px; height:56px; margin:0 auto 16px; border-radius:50%; border:1.5px solid var(--gold); color:var(--gold); font-family:'Cinzel',serif; font-size:22px; display:flex; align-items:center; justify-content:center;">II</div>
+          <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:18px; color:var(--ink);">我给方向 / demo</h3>
+          <p style="margin-top:10px; font-size:13.5px; line-height:1.8; color:var(--body);">先听 demo，感受对不对味——你说了算。</p>
+        </div>
+        <div data-reveal="" data-reveal-delay="180" style="background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:30px 24px; text-align:center; box-shadow:0 12px 26px rgba(50,44,99,.1);">
+          <div style="width:56px; height:56px; margin:0 auto 16px; border-radius:50%; border:1.5px solid var(--gold); color:var(--gold); font-family:'Cinzel',serif; font-size:22px; display:flex; align-items:center; justify-content:center;">III</div>
+          <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:18px; color:var(--ink);">满意再定</h3>
+          <p style="margin-top:10px; font-size:13.5px; line-height:1.8; color:var(--body);">方向对了再谈细节和推进。不勉强。</p>
+        </div>
+        <div data-reveal="" data-reveal-delay="270" style="background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:30px 24px; text-align:center; box-shadow:0 12px 26px rgba(50,44,99,.1);">
+          <div style="width:56px; height:56px; margin:0 auto 16px; border-radius:50%; border:1.5px solid var(--gold); color:var(--gold); font-family:'Cinzel',serif; font-size:22px; display:flex; align-items:center; justify-content:center;">IV</div>
+          <h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:18px; color:var(--ink);">交付作品</h3>
+          <p style="margin-top:10px; font-size:13.5px; line-height:1.8; color:var(--body);">一首发行级别的成熟作品，交到您的手中。</p>
+        </div>
+      </div>
+      <div data-reveal="" style="display:flex; justify-content:center; margin-top:30px;">
+        <p style="font-size:14px; line-height:1.7; color:var(--body); text-align:center; max-width:520px;"><span style="color: var(--gold);">✦</span>&nbsp;实际合作中会按您的要求调整沟通节奏与流程，一切都以保障最终交付第一优先。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ 常见问题 -->
+  <section id="faq" style="position:relative; max-width:820px; margin:0 auto; padding:clamp(66px,10vh,120px) clamp(20px,5vw,60px);">
+    <div data-reveal="" style="text-align:center; margin-bottom:40px;">
+      <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">F.A.Q · 常见问题</div>
+      <h2 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(28px,4.4vw,48px); color:var(--ink); line-height:1.35; margin-top:14px;">关于委托，你可能想问</h2>
+    </div>
+    <div data-reveal="">
+      <details style="background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <summary style="cursor:pointer; padding:20px 24px; font-family:'Noto Serif SC',serif; font-weight:700; font-size:16.5px; color:var(--ink); display:flex; align-items:center; gap:12px;"><span data-caret="" style="color: var(--gold); flex: 0 0 auto; transition: transform 0.25s;">✦</span>我完全不懂音乐制作，也能约稿吗？</summary>
+        <div style="padding:2px 24px 22px 48px; font-size:14.5px; line-height:1.9; color:var(--body);">完全可以。你只要描述角色、情绪，或者想要的感觉，专业的部分交给我——全程我都会用大众能理解的方式沟通，不会涉及您不熟悉的专业术语。</div>
+      </details>
+      <details style="background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <summary style="cursor:pointer; padding:20px 24px; font-family:'Noto Serif SC',serif; font-weight:700; font-size:16.5px; color:var(--ink); display:flex; align-items:center; gap:12px;"><span data-caret="" style="color:var(--gold); flex:0 0 auto; transition:transform .25s;">✦</span>大概怎么收费？</summary>
+        <div style="padding:2px 24px 22px 48px; font-size:14.5px; line-height:1.9; color:var(--body);">一般在 100-500 元/分钟 区间内，按曲目类型、时长和使用用途会有微调。聊清需求、排期后我会给出明确价格，且中途不会进行任何加价行为。</div>
+      </details>
+      <details style="background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <summary style="cursor:pointer; padding:20px 24px; font-family:'Noto Serif SC',serif; font-weight:700; font-size:16.5px; color:var(--ink); display:flex; align-items:center; gap:12px;"><span data-caret="" style="color:var(--gold); flex:0 0 auto; transition:transform .25s;">✦</span>一般需要多久？</summary>
+        <div style="padding:2px 24px 22px 48px; font-size:14.5px; line-height:1.9; color:var(--body);">视复杂度与您的预期而定，通常在数周内。接单时我会给你明确排期，不会无限期拖延。</div>
+      </details>
+      <details style="background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <summary style="cursor:pointer; padding:20px 24px; font-family:'Noto Serif SC',serif; font-weight:700; font-size:16.5px; color:var(--ink); display:flex; align-items:center; gap:12px;"><span data-caret="" style="color:var(--gold); flex:0 0 auto; transition:transform .25s;">✦</span>可以修改吗？改几次？</summary>
+        <div style="padding:2px 24px 22px 48px; font-size:14.5px; line-height:1.9; color:var(--body);">方向确认之后，合理范围内的调整都包含在内，不会让你为小改动反复付费。</div>
+      </details>
+      <details style="background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <summary style="cursor:pointer; padding:20px 24px; font-family:'Noto Serif SC',serif; font-weight:700; font-size:16.5px; color:var(--ink); display:flex; align-items:center; gap:12px;"><span data-caret="" style="color: var(--gold); flex: 0 0 auto; transition: transform 0.25s;">✦</span>成品版权归谁？能商用 / 买断吗？</summary>
+        <div style="padding:2px 24px 22px 48px; font-size:14.5px; line-height:1.9; color:var(--body);">成品的使用权归您；商用完全没问题，委托时说明用途即可，我会为您明确授权范围与使用许可。</div>
+      </details>
+      <details style="background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <summary style="cursor:pointer; padding:20px 24px; font-family:'Noto Serif SC',serif; font-weight:700; font-size:16.5px; color:var(--ink); display:flex; align-items:center; gap:12px;"><span data-caret="" style="color:var(--gold); flex:0 0 auto; transition:transform .25s;">✦</span>只有一段哼唱 / 半成品也能做吗？</summary>
+        <div style="padding:2px 24px 22px 48px; font-size:14.5px; line-height:1.9; color:var(--body);">能，这就是我的工作职责。基于任何元素、词曲、文字设定等等——甚至没有，我都可以帮您制作出符合要求的完整乐曲。<br>在沟通需求时发给我就好，我会用制作技术与您一同打造您的专属曲目。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div style="max-width:1160px; margin:0 auto; padding:6px clamp(20px,5vw,60px);">
+    <div style="display:flex; align-items:center; gap:18px; color:var(--gold);">
+      <span style="height:1px; flex:1; background:linear-gradient(90deg, transparent, var(--line));"></span>
+      <span style="font-size:13px; letter-spacing:.4em;">✦ ✧ ✦</span>
+      <span style="height:1px; flex:1; background:linear-gradient(90deg, var(--line), transparent);"></span>
     </div>
   </div>
-</header>
 
-<section id="help">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">我能帮你做什么</div>
-      <h2>你只要有个想法，剩下交给我。<span class="sub">不用东找西找、不用协调一堆人。告诉我你的角色或企划，我把它变成一首完整的歌。</span></h2>
+  <!-- 5. 联系 -->
+  <section id="contact" style="position:relative; overflow:hidden; padding:clamp(72px,11vh,150px) clamp(20px,5vw,60px); background:radial-gradient(90% 100% at 50% 120%, var(--glowB,#e4d3ab) 0%, var(--parch) 60%);">
+    <div data-runes="" style="position:absolute; inset:0; pointer-events:none; opacity:.5;">
+      <div style="position:absolute; top:12%; left:8%; width:200px; height:200px; border-radius:50%; border:1.5px dashed rgba(60,42,26,.34); animation:spinCW 90s linear infinite;"></div>
+      <span style="position:absolute; top:24%; right:12%; color:rgba(60,42,26,.5); font-size:26px;">✶</span>
     </div>
-    <div class="cards">
-      <div class="card reveal"><div class="n">01</div><h3>想给角色做一首完整的歌</h3><p>从零开始——词、曲、编曲、演唱到成品，一站到底，交付能直接发布的作品。</p></div>
-      <div class="card reveal"><div class="n">02</div><h3>已经有旋律或哼唱</h3><p>把你脑子里的调子，做成有完整编曲、能上架的样子。</p></div>
-      <div class="card reveal"><div class="n">03</div><h3>想让虚拟歌姬唱你的歌</h3><p>歌声调校到自然、动听，贴合角色的声音气质。</p></div>
+    <div style="position:relative; z-index:2; max-width:760px; margin:0 auto; text-align:center;">
+      <div data-reveal="">
+        <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">SUMMON · 寄出委托</div>
+        <h2 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(32px,5.4vw,62px); color:var(--ink); line-height:1.3; margin-top:14px;">您的音乐创意应当被听到，<br>期待您的委托</h2>
+        <p style="margin:20px auto 0; max-width:460px; font-size:15px; line-height:2; color:var(--body);">不用有长篇大论的企划书，只要您有「我想要一首独属于我（角色）的歌」——这种念头，不要犹豫，我们开始吧！</p>
+      </div>
+      <p style="margin:20px auto 0; max-width:460px; font-size:15px; line-height:2; color:var(--body);">您可以通过以下渠道和我取得联系，我会在一小时内回复您</p>
+      <div data-reveal="" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(212px,1fr)); gap:12px; margin-top:44px; max-width:680px; margin-left:auto; margin-right:auto; text-align:left;">
+        <a href="#" data-open-modal="" style="display:flex; align-items:center; gap:13px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:transform .3s, border-color .3s;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:#6f8fb0; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c-4.2 0-7.5 2.8-7.5 6.3 0 1.9 1 3.6 2.6 4.7-.2 1-.7 2-1.3 2.7 1.3-.1 2.5-.6 3.3-1.1.9.3 1.9.4 2.9.4 4.2 0 7.5-2.8 7.5-6.3S16.2 4 12 4Z"></path></svg></span>
+          <span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14.5px; color:var(--ink); font-weight:500;">QQ</span><span style="font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">1013441762</span></span>
+        </a>
+        <a href="#" data-open-modal="" style="display:flex; align-items:center; gap:13px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:transform .3s, border-color .3s;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:#7aa383; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5C7.9 5 4.5 7.6 4.5 10.9c0 1.8 1 3.4 2.6 4.5-.2.9-.6 1.8-1.2 2.5 1.2-.1 2.3-.5 3-1 .9.3 1.9.4 2.9.4"></path><path d="M14 11c2.8 0 5.5 1.8 5.5 4.4 0 1.2-.6 2.3-1.6 3.1.3.5.5 1 .8 1.6-.9-.2-1.6-.5-2.3-.9-.8.2-1.6.3-2.4.3-2.9 0-5.5-1.8-5.5-4.4S11.1 11 14 11Z"></path></svg></span>
+          <span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14.5px; color:var(--ink); font-weight:500;">微信</span><span style="font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">msz1013441762</span></span>
+        </a>
+        <a href="#" data-open-modal="" style="display:flex; align-items:center; gap:13px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:transform .3s, border-color .3s;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:#c98aa0; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 5 5.5 3M16.5 5l2-2"></path><rect x="3" y="5.5" width="18" height="13.5" rx="3.5"></rect><path d="M8.5 11v2.5M15.5 11v2.5"></path></svg></span>
+          <span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14.5px; color:var(--ink); font-weight:500;">哔哩哔哩</span><span style="font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">@MszookOfficial</span></span>
+        </a>
+        <a href="mailto:mail@mszook.art" style="display:flex; align-items:center; gap:13px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:transform .3s, border-color .3s;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:#bf9a52; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M4 7l8 5.5L20 7"></path></svg></span>
+          <span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14.5px; color:var(--ink); font-weight:500;">邮箱</span><span style="font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">mail@mszook.art</span></span>
+        </a>
+        <a href="#" style="display:flex; align-items:center; gap:13px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:transform .3s, border-color .3s;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:#6a6480; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 15.5a2.5 2.5 0 1 1-2.5-2.5c.4 0 .8.1 1.2.3"></path><path d="M11 5v10.5"></path><path d="M11 5c.4 2.2 2 3.8 4.2 4"></path></svg></span>
+          <span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14.5px; color:var(--ink); font-weight:500;">抖音</span><span style="font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">@Mszook</span></span>
+        </a>
+        <a href="#" style="display:flex; align-items:center; gap:13px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; transition:transform .3s, border-color .3s;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:12px; background:#c0837a; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h6v16H5.5A1.5 1.5 0 0 1 4 18.5V5a1 1 0 0 1 1-1Z"></path><path d="M13 4h6a1 1 0 0 1 1 1v13.5a1.5 1.5 0 0 1-1.5 1.5H13V4Z"></path></svg></span>
+          <span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14.5px; color:var(--ink); font-weight:500;">小红书</span><span style="font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Mszook</span></span>
+        </a>
+      </div>
+      <a href="#" data-open-modal="" data-reveal="" style="display:inline-flex; align-items:center; gap:10px; margin-top:42px; background:var(--indigo); color:var(--goldL); border:1px solid var(--gold); font-family:'Noto Serif SC',serif; font-weight:500; font-size:17px; letter-spacing:.04em; padding:17px 44px; border-radius:6px; box-shadow:0 16px 34px rgba(50,44,99,.3);">联系委托<span>✦</span></a>
     </div>
-    <p class="pro-line reveal">作曲 · 编曲 · 混音 · 母带，这些环节我都亲自来。同行有专业单项需求？<a href="#contact">直接找我聊</a>。</p>
+  </section>
+
+  <footer style="padding:36px clamp(20px,5vw,60px); text-align:center; background:var(--indigo);">
+    <div style="font-family:'Noto Serif SC',serif; font-weight:700; letter-spacing:.04em; font-size:18px; color:var(--goldL);">Mszook <span style="color:var(--pink);">✦</span></div>
+    <div style="margin-top:9px; font-family:'Shippori Mincho',serif; font-size:14px; color:rgba(220,184,90,.7);">灰の中の、ひとつの温度。 —— 灰烬里的一点温度</div>
+  </footer>
+
+  <!-- FLOATING BUTTONS -->
+  <div style="position:fixed; right:clamp(16px,3vw,26px); bottom:clamp(16px,3vw,26px); z-index:120; display:flex; flex-direction:column; gap:10px;">
+    <button data-to-top="" title="回到顶部" style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer; box-shadow:0 4px 12px rgba(50,44,99,.12); display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(8px); pointer-events:none; transition:opacity .3s, transform .3s, color .2s;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"></path></svg></button>
+    <button data-theme-toggle="" title="切换 亮 / 暗" style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer; box-shadow:0 4px 12px rgba(50,44,99,.12); display:flex; align-items:center; justify-content:center; transition:color .2s;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"></circle><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor" stroke="none"></path></svg></button>
   </div>
-</section>
 
-<section id="works">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">听我的作品</div>
-      <h2>与其解释，不如你直接听。<span class="sub">每首都为一个具体的角色、情绪或世界而写。</span></h2>
-    </div>
-    <div class="reveal">
-      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>灰のユートピア</h4><div class="ctx">初音ミク · J-pop×Jazz Pop · 写给"在褪色时代里确认自我在场"的哲学小品</div></div><div class="work-tag">角色曲 · 抒情</div></div>
-      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>［样例 · 出道曲］</h4><div class="ctx">VTuber 出道单曲 · 明亮 Future Bass · 为人设量身定制的记忆点副歌</div></div><div class="work-tag">出道曲</div></div>
-      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>［样例 · 燃系 OP］</h4><div class="ctx">企划主题曲 · 铜管＋弦乐＋吉他 · 大编制的开场气势</div></div><div class="work-tag">OP · 燃</div></div>
-      <div class="work"><div class="play">▶</div><div class="work-meta"><h4>［样例 · 暗色 Artcore］</h4><div class="ctx">原创企划 · 电子×文学 · 花譜／水槽 那一挂的暗色声线</div></div><div class="work-tag">烙印 · 暗色</div></div>
+  <!-- 委托 MODAL -->
+  <div data-modal="" style="position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; background:rgba(20,15,10,.6); backdrop-filter:blur(3px); opacity:0; transition:opacity .26s;">
+    <div data-modal-panel="" style="position:relative; width:75vw; height:75vh; max-width:1080px; background:var(--parch); border:1px solid var(--gold); border-radius:16px; box-shadow:0 40px 90px rgba(0,0,0,.5); overflow:auto; display:flex; flex-direction:column; justify-content:center; padding:clamp(24px,3vw,44px); opacity:0; transform:scale(.96); transition:opacity .26s, transform .26s;">
+      <button data-close-modal="" title="关闭" style="position:absolute; top:16px; right:16px; width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--ink); font-size:17px; cursor:pointer; line-height:1; z-index:2;">✕</button>
+      <div style="text-align:center; margin-bottom:6px;">
+        <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">SUMMON</div>
+        <h3 style="font-family:'Noto Serif SC',serif; font-weight:900; font-size:clamp(24px,3vw,36px); color:var(--ink); margin-top:10px;">递上你的委托</h3>
+        <p style="margin-top:10px; font-size:14px; line-height:1.8; color:var(--body);">扫码加我，或通过右侧任一渠道联系，我会尽快回复 ✦</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:clamp(16px,2vw,26px); margin-top:26px; align-items:start;">
+        <div style="text-align:center;">
+          <div style="position:relative; aspect-ratio:3/4; border-radius:12px; overflow:hidden; border:2px solid var(--line); background:var(--panel);">
+            <!-- QQ 二维码：放 uploads/qr-qq.png -->
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px;">放 QQ 二维码</span>
+            <img src="uploads/qr-qq.png" alt="QQ 二维码" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="margin-top:12px; font-size:14px; color:var(--ink); font-weight:500;">QQ 扫码添加</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="position:relative; aspect-ratio:3/4; border-radius:12px; overflow:hidden; border:2px solid var(--line); background:var(--panel);">
+            <!-- 微信二维码：放 uploads/qr-wx.png -->
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px;">放微信二维码</span>
+            <img src="uploads/qr-wx.png" alt="微信二维码" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="margin-top:12px; font-size:14px; color:var(--ink); font-weight:500;">微信 扫码添加</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <a href="#" style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--panel); border:1px solid var(--line); border-radius:12px;"><span style="flex:0 0 auto; width:38px; height:38px; border-radius:11px; background:#c98aa0; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 5 5.5 3M16.5 5l2-2"></path><rect x="3" y="5.5" width="18" height="13.5" rx="3.5"></rect><path d="M8.5 11v2.5M15.5 11v2.5"></path></svg></span><span style="display:flex; flex-direction:column; gap:2px; min-width:0;"><span style="font-size:14px; color:var(--ink); font-weight:500;">哔哩哔哩</span><span style="font-size:12.5px; color:var(--muted);">@Mszook</span></span></a>
+          <a href="mailto:mail@mszook.art" style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--panel); border:1px solid var(--line); border-radius:12px;"><span style="flex:0 0 auto; width:38px; height:38px; border-radius:11px; background:#bf9a52; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M4 7l8 5.5L20 7"></path></svg></span><span style="display:flex; flex-direction:column; gap:2px; min-width:0;"><span style="font-size:14px; color:var(--ink); font-weight:500;">邮箱</span><span style="font-size:12.5px; color:var(--muted);">mail@mszook.art</span></span></a>
+          <a href="#" style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--panel); border:1px solid var(--line); border-radius:12px;"><span style="flex:0 0 auto; width:38px; height:38px; border-radius:11px; background:#c0837a; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h6v16H5.5A1.5 1.5 0 0 1 4 18.5V5a1 1 0 0 1 1-1Z"></path><path d="M13 4h6a1 1 0 0 1 1 1v13.5a1.5 1.5 0 0 1-1.5 1.5H13V4Z"></path></svg></span><span style="display:flex; flex-direction:column; gap:2px; min-width:0;"><span style="font-size:14px; color:var(--ink); font-weight:500;">小红书</span><span style="font-size:12.5px; color:var(--muted);">Mszook</span></span></a>
+          <a href="#" style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--panel); border:1px solid var(--line); border-radius:12px;"><span style="flex:0 0 auto; width:38px; height:38px; border-radius:11px; background:#6a6480; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 15.5a2.5 2.5 0 1 1-2.5-2.5c.4 0 .8.1 1.2.3"></path><path d="M11 5v10.5"></path><path d="M11 5c.4 2.2 2 3.8 4.2 4"></path></svg></span><span style="display:flex; flex-direction:column; gap:2px; min-width:0;"><span style="font-size:14px; color:var(--ink); font-weight:500;">抖音</span><span style="font-size:12.5px; color:var(--muted);">@mszook</span></span></a>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-<section id="why">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">为什么是我</div>
-      <h2>会做曲的人不少，<br>懂你的世界的没几个。</h2>
-    </div>
-    <div class="why-grid">
-      <p class="big reveal">我自己就是圈内的 P主，也在建自己的世界观 <em>Ashen</em>。所以我不只是"帮你做首曲子"——我懂二次元、懂角色、懂怎么用音乐去<em>服务一个人物、一个世界</em>。</p>
-      <ul class="creds reveal">
-        <li><b>VOCALOID P主</b> · 原创投稿 / 调校</li>
-        <li><b>Ashen 世界观</b> · 主题曲·角色曲·场景乐的完整实践</li>
-        <li><b>感性声音制作人课</b> · 系统的审美训练</li>
-        <li><b>韩国 RBW 大师课</b> · K-pop 工业级作曲营</li>
-        <li><b>全链路自持</b> · 词曲 / 编曲 / 混音 / 母带</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">怎么合作</div>
-      <h2>第一次委托？别担心，很简单。</h2>
-    </div>
-    <div class="steps">
-      <div class="step reveal"><div class="s">1</div><h4>说想法</h4><p>告诉我你的角色、企划，或只是一种感觉。</p></div>
-      <div class="step reveal"><div class="s">2</div><h4>给方向</h4><p>我出方案和 demo 小样，让你先感受。</p></div>
-      <div class="step reveal"><div class="s">3</div><h4>满意再定</h4><p>方向对了才继续，全程可听、可调。</p></div>
-      <div class="step reveal"><div class="s">4</div><h4>交付</h4><p>交你一首能直接发布的成品。</p></div>
-    </div>
-    <p class="assure reveal"><b>新手也欢迎</b>——先听 demo 再决定，方向不对不硬来。哪怕你只有个模糊的想法，我也能陪你把它捋清楚。</p>
-  </div>
-</section>
-
-<section id="contact" class="contact">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">开始</div>
-      <h2>把你的角色，交给懂它的人。</h2>
-      <p>哪怕只有一个模糊的念头，也可以来找我聊聊。</p>
-      <a href="#" class="cta">联系我 / 开始委托 →</a>
-    </div>
-  </div>
-</section>
-
-<footer>© 2026 <span>ASHEN</span> · Msz — 音乐委托 · 原型 v1</footer>
+</div>
 
 <script>
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
-const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
-document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3*80)+'ms';io.observe(el)});
+/* ───────────────────────────────────────────────────────────────
+   Mszook 约稿主场 · 纯前端交互（无框架、无外部依赖）
+   由 Claude Design 画布导出「压平」而来，可直接静态托管。
+─────────────────────────────────────────────────────────────── */
+(function () {
+  // 画布里的可配置项，现在写死在这里。想改默认主题/接稿状态，改这里即可。
+  var PROPS = {
+    theme: "羊皮纸",          // 羊皮纸 | 陈年卷轴 | 星夜
+    commissionStatus: "接稿中", // 接稿中 | 限时开放 | 暂停接稿
+    showRunes: true            // 是否显示背景符文/星点装饰
+  };
+
+  function Site(props) { this.props = props; this._themeOverride = null; }
+
+  Site.prototype.mount = function () {
+    this._applyTheme();
+    this._applyStatus();
+    this._applyRunes();
+    this._setupNav();
+    this._setupResponsive();
+    this._setupReveal();
+    this._setupAudio();
+    this._setupHeroListen();
+    this._setupThemeToggle();
+    this._setupModal();
+    this._setupToTop();
+  };
+
+  Site.prototype._root = function () {
+    return this._rootEl || (this._rootEl = document.getElementById("v3nav") &&
+      document.getElementById("v3nav").closest("div[style*='--parch']"));
+  };
+
+  Site.prototype._setupResponsive = function () {
+    var self = this;
+    var apply = function () {
+      var mobile = window.innerWidth < 640;
+      document.querySelectorAll("[data-navlink]").forEach(function (el) { el.style.display = mobile ? "none" : ""; });
+      var hero = document.getElementById("top");
+      if (hero) hero.style.paddingTop = mobile ? "94px" : "120px";
+      var nav = document.getElementById("v3nav");
+      if (nav) nav.style.padding = mobile ? "12px 18px" : "16px clamp(20px,5vw,60px)";
+      var mp = document.querySelector("[data-modal-panel]");
+      if (mp) { mp.style.width = mobile ? "92vw" : "75vw"; mp.style.height = mobile ? "88vh" : "75vh"; }
+    };
+    apply();
+    this._onResize = apply;
+    window.addEventListener("resize", this._onResize, { passive: true });
+  };
+
+  Site.prototype._applyTheme = function () {
+    var root = this._root(); if (!root) return;
+    var T = {
+      "羊皮纸": { parch:"#f3e8d1", panel:"#fbf4e4", panel2:"#f1e7cf", ink:"#3c2a1a", body:"#5c4832", muted:"#8a7355", line:"#dcc79a", gold:"#b8892f", goldL:"#dcb85a", indigo:"#322c63", pink:"#d97ba8", hl:"#322c63", glowA:"#fbf1da", glowB:"#ecdfc2" },
+      "陈年卷轴": { parch:"#d8c396", panel:"#e5d4ac", panel2:"#dcca9f", ink:"#33230f", body:"#54401f", muted:"#7d6642", line:"#bfa068", gold:"#a3781f", goldL:"#cea847", indigo:"#2c2657", pink:"#c96f9c", hl:"#2c2657", glowA:"#e8d6a9", glowB:"#d5bf90" },
+      "星夜": { parch:"#1d1937", panel:"#2a2550", panel2:"#242046", ink:"#f2e9cf", body:"#cdc3e6", muted:"#948cb8", line:"#48417c", gold:"#e6c76e", goldL:"#f4dd93", indigo:"#3d3778", pink:"#eaa0c8", hl:"#f4dd93", glowA:"rgba(96,80,162,0.5)", glowB:"rgba(48,40,96,0.75)" }
+    };
+    var name = this._themeOverride || this.props.theme || "羊皮纸";
+    var t = T[name] || T["羊皮纸"];
+    for (var k in t) root.style.setProperty("--" + k, t[k]);
+    document.body.style.background = t.parch;
+    document.body.style.color = t.body;
+    if (this._onScroll) this._onScroll();
+  };
+
+  Site.prototype._applyStatus = function () {
+    var wrap = document.querySelector("[data-status]");
+    var txt = document.querySelector("[data-status-text]");
+    if (!wrap || !txt) return;
+    var map = {
+      "接稿中": { t:"接稿中 · 委托开放", dot:"#3f9b63" },
+      "限时开放": { t:"限时开放 · 手慢无", dot:"#d99326" },
+      "暂停接稿": { t:"暂停接稿 · 可先聊聊", dot:"#9a86c8" }
+    };
+    var s = map[this.props.commissionStatus] || map["接稿中"];
+    txt.textContent = s.t;
+    var dot = wrap.querySelector("span");
+    if (dot) { dot.style.background = s.dot; dot.style.boxShadow = "0 0 0 3px " + s.dot + "40"; }
+  };
+
+  Site.prototype._applyRunes = function () {
+    var on = this.props.showRunes !== false;
+    document.querySelectorAll("[data-runes]").forEach(function (el) { el.style.display = on ? "" : "none"; });
+  };
+
+  Site.prototype._setupThemeToggle = function () {
+    var self = this;
+    var btn = document.querySelector("[data-theme-toggle]");
+    if (!btn || btn.dataset.init) return;
+    btn.dataset.init = "1";
+    btn.addEventListener("click", function () {
+      var cur = self._themeOverride || self.props.theme || "羊皮纸";
+      self._themeOverride = (cur === "星夜") ? "羊皮纸" : "星夜";
+      self._applyTheme();
+    });
+  };
+
+  Site.prototype._setupToTop = function () {
+    var btn = document.querySelector("[data-to-top]");
+    if (!btn || btn.dataset.init) return;
+    btn.dataset.init = "1";
+    btn.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    var onScroll = function () {
+      var show = window.scrollY > 480;
+      btn.style.opacity = show ? "1" : "0";
+      btn.style.transform = show ? "none" : "translateY(10px)";
+      btn.style.pointerEvents = show ? "auto" : "none";
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  };
+
+  Site.prototype._setupModal = function () {
+    var overlay = document.querySelector("[data-modal]");
+    if (!overlay || overlay.dataset.init) return;
+    overlay.dataset.init = "1";
+    var panel = overlay.querySelector("[data-modal-panel]");
+    var open = function () {
+      overlay.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(function () { overlay.style.opacity = "1"; if (panel) { panel.style.transform = "scale(1)"; panel.style.opacity = "1"; } });
+    };
+    var close = function () {
+      overlay.style.opacity = "0";
+      if (panel) { panel.style.transform = "scale(.96)"; panel.style.opacity = "0"; }
+      document.body.style.overflow = "";
+      setTimeout(function () { overlay.style.display = "none"; }, 260);
+    };
+    document.querySelectorAll("[data-open-modal]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); open(); }); });
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
+    overlay.querySelectorAll("[data-close-modal]").forEach(function (b) { b.addEventListener("click", close); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && overlay.style.display === "flex") close(); });
+  };
+
+  Site.prototype._setupNav = function () {
+    var self = this;
+    var nav = document.getElementById("v3nav"); if (!nav) return;
+    this._onScroll = function () {
+      var t = self._root();
+      var parch = t ? getComputedStyle(t).getPropertyValue("--parch").trim() : "#e3d1ab";
+      var line = t ? getComputedStyle(t).getPropertyValue("--line").trim() : "#cbaf80";
+      if (window.scrollY > 40) {
+        nav.style.background = parch + "e6";
+        nav.style.backdropFilter = "blur(10px)";
+        nav.style.boxShadow = "0 6px 22px rgba(50,44,99,.14)";
+        nav.style.borderBottomColor = line;
+      } else {
+        nav.style.background = "transparent";
+        nav.style.backdropFilter = "none";
+        nav.style.boxShadow = "none";
+        nav.style.borderBottomColor = "transparent";
+      }
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    this._onScroll();
+  };
+
+  Site.prototype._reveal = function (el) {
+    var d = parseInt(el.getAttribute("data-reveal-delay") || "0", 10);
+    setTimeout(function () { el.style.opacity = "1"; el.style.transform = "none"; }, d);
+  };
+  Site.prototype._setupReveal = function () {
+    var self = this;
+    var supported = "IntersectionObserver" in window;
+    if (supported && !this._io) {
+      this._io = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          if (e.isIntersecting) { self._reveal(e.target); self._io.unobserve(e.target); }
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    }
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
+      if (el.dataset.revealInit) return;
+      el.dataset.revealInit = "1";
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)";
+      if (supported) self._io.observe(el); else self._reveal(el);
+    });
+    clearTimeout(this._revealSafety);
+    this._revealSafety = setTimeout(function () {
+      document.querySelectorAll("[data-reveal]").forEach(function (el) { if (getComputedStyle(el).opacity === "0") self._reveal(el); });
+    }, 2600);
+  };
+
+  Site.prototype._fmt = function (s) { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+
+  /* ── 播放器 ──
+     每个 [data-track] 可选带 data-audio="音频文件路径"。
+     · 有音频且能加载 → 真实播放（进度、拖动、时间都来自音频本身）。
+     · 没有 data-audio / 文件 404 / 格式不支持 → 自动退化为“演示进度条”（视觉走一遍，不出声）。
+     同一时间只播一首。                                             */
+  Site.prototype._setupAudio = function () {
+    var self = this;
+    this._players = [];
+    document.querySelectorAll("[data-track]").forEach(function (track) {
+      if (track.dataset.audioInit) return;
+      track.dataset.audioInit = "1";
+
+      var btn  = track.querySelector("[data-play]");
+      var bar  = track.querySelector("[data-bar]");
+      var fill = track.querySelector("[data-fill]");
+      var head = track.querySelector("[data-head]");
+      var time = track.querySelector("[data-time]");
+      if (!btn || !bar || !fill || !head || !time) return;
+
+      var srcAttr = track.getAttribute("data-audio");
+      var dur = parseFloat(track.getAttribute("data-duration")) || 200;
+      var cur = 0, playing = false, last = 0, rafId = 0, hasReal = false;
+      var audio = null;
+      if (srcAttr) { audio = new Audio(); audio.preload = "metadata"; audio.src = srcAttr; }
+
+      var paint = function () {
+        var pct = dur ? Math.min(100, (cur / dur) * 100) : 0;
+        fill.style.width = pct + "%";
+        head.style.left = pct + "%";
+        time.textContent = self._fmt(cur) + " / " + self._fmt(dur);
+      };
+      var setBtn = function (p) {
+        btn.textContent = p ? "❚❚" : "▶";
+        btn.style.transform = p ? "scale(1.08)" : "scale(1)";
+        head.style.opacity = p ? "1" : "0";
+      };
+
+      if (audio) {
+        audio.addEventListener("loadedmetadata", function () {
+          if (isFinite(audio.duration) && audio.duration > 0) { dur = audio.duration; hasReal = true; paint(); }
+        });
+        audio.addEventListener("timeupdate", function () { cur = audio.currentTime; paint(); });
+        audio.addEventListener("ended", function () { playing = false; cur = 0; setBtn(false); paint(); });
+        audio.addEventListener("error", function () { audio = null; hasReal = false; }); // 加载失败 → 退化为演示
+      }
+
+      var tick = function (t) {
+        if (!playing) return;
+        if (!last) last = t;
+        cur += (t - last) / 1000; last = t;
+        if (cur >= dur) { cur = 0; playing = false; setBtn(false); paint(); return; }
+        paint();
+        rafId = requestAnimationFrame(tick);
+      };
+      var startSim = function () { last = 0; rafId = requestAnimationFrame(tick); };
+
+      var api = {
+        play: function () {
+          self._players.forEach(function (p) { if (p !== api) p.stop(); });
+          playing = true; setBtn(true);
+          if (audio) { audio.play().catch(function () { startSim(); }); }
+          else startSim();
+        },
+        pause: function () {
+          playing = false; setBtn(false);
+          if (audio) audio.pause();
+          cancelAnimationFrame(rafId);
+        },
+        stop: function () { this.pause(); }
+      };
+      self._players.push(api);
+      if (!self._playFirst) self._playFirst = function () { api.play(); };
+
+      btn.addEventListener("click", function () { playing ? api.pause() : api.play(); });
+      bar.addEventListener("click", function (e) {
+        var rect = bar.getBoundingClientRect();
+        var ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        cur = ratio * dur;
+        if (audio && hasReal) audio.currentTime = cur;
+        paint();
+      });
+
+      paint();
+    });
+  };
+
+  Site.prototype._setupHeroListen = function () {
+    var self = this;
+    document.querySelectorAll("[data-hero-listen]").forEach(function (b) {
+      if (b.dataset.listenInit) return;
+      b.dataset.listenInit = "1";
+      b.addEventListener("click", function () {
+        var works = document.getElementById("works");
+        if (works) window.scrollTo({ top: works.getBoundingClientRect().top + window.scrollY - 30, behavior: "smooth" });
+        setTimeout(function () { if (self._playFirst) self._playFirst(); }, 700);
+      });
+    });
+  };
+
+  var boot = function () { new Site(PROPS).mount(); };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
 </script>
 </body>
 </html>
