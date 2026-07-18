@@ -26,6 +26,7 @@
   body{ background:#f3e8d1; color:#5c4832; font-family:"Noto Serif SC","Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   a{ color:#b8892f; text-decoration:none; }
   a:hover{ color:#8c6520; }
+  img{ -webkit-user-drag:none; user-select:none; }
   ::selection{ background:rgba(50,44,99,.22); color:#3c2a1a; }
   summary::-webkit-details-marker{ display:none; }
   summary::marker{ content:''; }
@@ -193,7 +194,7 @@
               <div style="flex:1 1 auto;">
                 <div data-fp-bar="" style="position:relative; height:6px; background:rgba(50,44,99,.14); border-radius:999px; cursor:pointer;">
                   <div data-fp-fill="" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--gold),var(--goldL)); border-radius:999px;"></div>
-                  <div data-fp-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); color:var(--gold); opacity:0; transition:opacity .2s; line-height:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M12 1.5 L15 9 L22.5 12 L15 15 L12 22.5 L9 15 L1.5 12 L9 9 Z"></path></svg></div>
+                  <div data-fp-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,var(--goldL),var(--gold)); box-shadow:0 2px 8px rgba(50,44,99,.4), 0 0 0 2px var(--panel); color:var(--indigo); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .25s; pointer-events:none;"><svg data-fp-star="" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="display:block;"><path d="M12 1.5 L15 9 L22.5 12 L15 15 L12 22.5 L9 15 L1.5 12 L9 9 Z"></path></svg></div>
                 </div>
               </div>
               <div data-fp-time="" style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted); min-width:88px; text-align:right;">0:00 / 0:00</div>
@@ -417,7 +418,7 @@
 
   <!-- 委托 MODAL -->
   <div data-modal="" style="position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; background:rgba(20,15,10,.6); backdrop-filter:blur(3px); opacity:0; transition:opacity .26s;">
-    <div data-modal-panel="" style="position:relative; width:75vw; height:75vh; max-width:1080px; background:var(--parch); border:1px solid var(--gold); border-radius:16px; box-shadow:0 40px 90px rgba(0,0,0,.5); overflow:auto; display:flex; flex-direction:column; justify-content:center; padding:clamp(24px,3vw,44px); opacity:0; transform:scale(.96); transition:opacity .26s, transform .26s;">
+    <div data-modal-panel="" style="position:relative; width:75vw; max-width:1080px; max-height:86vh; background:var(--parch); border:1px solid var(--gold); border-radius:16px; box-shadow:0 40px 90px rgba(0,0,0,.5); overflow-y:auto; display:flex; flex-direction:column; padding:clamp(24px,3vw,44px); opacity:0; transform:scale(.96); transition:opacity .26s, transform .26s;">
       <button data-close-modal="" title="关闭" style="position:absolute; top:16px; right:16px; width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--ink); font-size:17px; cursor:pointer; line-height:1; z-index:2;">✕</button>
       <div style="text-align:center; margin-bottom:6px;">
         <div style="font-family:'Cinzel',serif; letter-spacing:.3em; font-size:12px; color:var(--gold);">SUMMON</div>
@@ -468,6 +469,7 @@
   function Site(props) { this.props = props; this._themeOverride = null; }
 
   Site.prototype.mount = function () {
+    document.querySelectorAll("img").forEach(function (im) { im.setAttribute("draggable", "false"); });
     this._applyTheme();
     this._applyStatus();
     this._applyRunes();
@@ -496,7 +498,7 @@
       var nav = document.getElementById("v3nav");
       if (nav) nav.style.padding = mobile ? "12px 18px" : "16px clamp(20px,5vw,60px)";
       var mp = document.querySelector("[data-modal-panel]");
-      if (mp) { mp.style.width = mobile ? "92vw" : "75vw"; mp.style.height = mobile ? "88vh" : "75vh"; }
+      if (mp) { mp.style.width = mobile ? "94vw" : "75vw"; mp.style.maxHeight = mobile ? "90vh" : "86vh"; }
     };
     apply();
     this._onResize = apply;
@@ -687,6 +689,8 @@
       fp.play.textContent = p ? "❚❚" : "▶";
       fp.play.style.transform = p ? "scale(1.06)" : "scale(1)";
       fp.head.style.opacity = p ? "1" : "0";
+      var hs = fp.head.querySelector("[data-fp-star]");
+      if (hs) hs.style.animation = p ? "spinCW 5s linear infinite" : "none";
       refreshRows();
     }
     function ensureAudio() {
