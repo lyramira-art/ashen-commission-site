@@ -61,7 +61,7 @@ EdgeOne 有类似 Cloudflare Pages 的静态托管：连本仓库 → 构建命�
 | `audio/lament.mp3` | 客单作品试听 | 同上 |
 | `uploads/cover-hai.jpg` | 代表作封面 | 显示靛蓝底 + ✦ 占位 |
 | `uploads/cover-lament.jpg` | 客单作品封面 | 同上 |
-| `uploads/avatar.jpg` | 曲师介绍头像 | 圆形靛蓝底 + ✦ 占位 |
+| `uploads/hero.png` | 首屏形象图 ＋ 曲师介绍头像（**共用一张、只下载一次**）| 已就位；换图直接替换此文件（约 1200px 宽） |
 | `uploads/qr-qq.png` / `uploads/qr-wx.png` | 委托弹窗二维码 | 显示「放 QQ / 微信二维码」文字占位 |
 
 改完 `git add -A && git commit && git push` 即可，EdgeOne 记得**刷新缓存**（或等缓存过期）。
@@ -74,7 +74,7 @@ EdgeOne 有类似 Cloudflare Pages 的静态托管：连本仓库 → 构建命�
 - [ ] **网易云 / Bilibili 链接**：作品卡片上的这两个按钮现在是 `href="#"`，换成完整版真实链接。
 - [ ] **联系方式核对**：QQ/微信/B站/抖音/小红书 账号，页面里现在是设计稿里的示例值，逐个确认。
 - [ ] **字体（国内速度）**：现在用 Google Fonts；国内可能慢/加载不出（会回退到系统衬线体，不影响可读）。想彻底解决：把 `<head>` 里那条 `fonts.googleapis.com` 换成国内镜像，或把用到的字重自托管到 `uploads/fonts/`。需要我做的话说一声。
-- [ ] **banner 图**：`uploads/banner-low.png` 有 ~5.8MB，偏大。压到 ~300KB 以内首屏会快很多。
+- [x] **主图已优化**：原 5.6MB PNG → `uploads/hero.png`（1200px、1.3MB，首屏与头像**共用一张、只下载一次**）；社媒分享图另存 `uploads/og.jpg`（224KB，仅爬虫抓取，不影响访客加载）。若这张主图**没有透明背景**，可再转 JPEG 压到 ~200KB——需要就说一声。
 
 ---
 
