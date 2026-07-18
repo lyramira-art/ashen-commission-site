@@ -176,93 +176,80 @@
         <p style="margin-top:12px; font-size:15px; line-height:1.85; color:var(--body);">每一首都反复精雕打磨，追求极致的音乐表现。拒绝工业模板化制作，下一首永远是更好</p>
       </div>
 
-      <!-- REAL TRACK 1 —— 放好 audio/hai-no-utopia.mp3 即可真实播放；没有文件时自动退化为演示进度条 -->
-      <div data-reveal="" data-track="" data-duration="218" data-audio="audio/hai-no-utopia.mp3" style="position: relative; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: clamp(20px,3vw,32px); box-shadow: 0 20px 44px rgba(50,44,99,.16); margin-bottom: 50px">
-        <span style="position:absolute; top:-13px; left:26px; background:var(--indigo); color:var(--goldL); font-family:'Cinzel',serif; letter-spacing:.12em; font-size:12px; padding:6px 16px; border-radius:4px; border:1px solid var(--gold);">✦ 代表作</span>
+      <!-- ══ 重点资源位 · 正在播放（点下面「曲目单」任意一首会载入这里）══ -->
+      <div data-reveal="" style="position:relative; background:var(--panel); border:1px solid var(--gold); border-radius:10px; padding:clamp(20px,3vw,32px); box-shadow:0 20px 44px rgba(50,44,99,.16); margin-bottom:34px;">
+        <span data-fp-badge="" style="position:absolute; top:-13px; left:26px; background:var(--indigo); color:var(--goldL); font-family:'Cinzel',serif; letter-spacing:.12em; font-size:12px; padding:6px 16px; border-radius:4px; border:1px solid var(--gold);">✦ 代表作</span>
         <div style="display:flex; gap:clamp(18px,3vw,30px); align-items:center; flex-wrap:wrap;">
-          <div style="position:relative; flex:0 0 auto; width:clamp(118px,20vw,158px); aspect-ratio:1; border-radius:8px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 10px 22px rgba(50,44,99,.24); background:var(--indigo);">
-            <!-- 封面：放 uploads/cover-hai.jpg -->
-            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--goldL); font-size:30px;">✦</span>
-            <img src="uploads/cover-hai.jpg" alt="灰のユートピア 封面" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
+          <div style="position:relative; flex:0 0 auto; width:clamp(120px,20vw,170px); aspect-ratio:1; border-radius:8px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 10px 22px rgba(50,44,99,.24); background:var(--indigo);">
+            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--goldL); font-size:34px;">✦</span>
+            <img data-fp-cover="" alt="封面" style="position:relative; width:100%; height:100%; object-fit:cover; display:none;">
           </div>
-          <div style="flex:1 1 300px; min-width:250px;">
-            <h3 style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:clamp(23px,2.7vw,32px); color:var(--ink);">灰のユートピア</h3>
-            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:11px;">
-              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">初音ミク</span>
-              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">暗色 J-pop</span>
-              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">Jazz Pop</span>
-            </div>
-            <p style="margin-top:14px; font-size:14px; line-height:1.85; color:var(--body); max-width:520px;">写给在废墟里还想唱歌的人——「Ashen」世界观的起点。</p>
+          <div style="flex:1 1 320px; min-width:260px;">
+            <h3 data-fp-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:clamp(23px,2.7vw,32px); color:var(--ink);">灰のユートピア</h3>
+            <div data-fp-tags="" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:11px;"></div>
+            <p data-fp-desc="" style="margin-top:14px; font-size:14px; line-height:1.85; color:var(--body); max-width:520px;"></p>
             <div style="display:flex; align-items:center; gap:14px; margin-top:20px;">
-              <button data-play="" style="flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border-radius:50%; background:var(--indigo); color:var(--goldL); border:1px solid var(--gold); cursor:pointer; font-size:15px; transition:transform .2s;">▶</button>
+              <button data-fp-play="" aria-label="播放 / 暂停" style="flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; background:var(--indigo); color:var(--goldL); border:1px solid var(--gold); cursor:pointer; font-size:16px; transition:transform .2s;">▶</button>
               <div style="flex:1 1 auto;">
-                <div data-bar="" style="position:relative; height:6px; background:rgba(50,44,99,.14); border-radius:999px; cursor:pointer;">
-                  <div data-fill="" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--gold),var(--goldL)); border-radius:999px;"></div>
-                  <div data-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:13px; color:var(--gold); opacity:0; transition:opacity .2s;">✦</div>
+                <div data-fp-bar="" style="position:relative; height:6px; background:rgba(50,44,99,.14); border-radius:999px; cursor:pointer;">
+                  <div data-fp-fill="" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--gold),var(--goldL)); border-radius:999px;"></div>
+                  <div data-fp-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:13px; color:var(--gold); opacity:0; transition:opacity .2s;">✦</div>
                 </div>
               </div>
-              <div data-time="" style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted); min-width:82px; text-align:right;">0:00 / 3:38</div>
+              <div data-fp-time="" style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted); min-width:88px; text-align:right;">0:00 / 0:00</div>
             </div>
-            <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
-              <!-- TODO: 换成完整版链接 -->
-              <a href="#" target="_blank" rel="noopener" style="font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;">网易云 ↗</a>
-              <a href="#" target="_blank" rel="noopener" style="font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;">Bilibili ↗</a>
-            </div>
+            <div data-fp-links="" style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;"></div>
           </div>
         </div>
       </div>
 
-      <!-- REAL TRACK 2 —— 放好 audio/lament.mp3 即可真实播放 -->
-      <div data-reveal="" data-track="" data-duration="218" data-audio="audio/lament.mp3" style="position: relative; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: clamp(20px,3vw,32px); box-shadow: 0 20px 44px rgba(50,44,99,.16); margin-bottom: 50px">
-        <span style="position:absolute; top:-13px; left:26px; background:var(--indigo); color:var(--goldL); font-family:'Cinzel',serif; letter-spacing:.12em; font-size:12px; padding:6px 16px; border-radius:4px; border:1px solid var(--gold);">✦ 客单展示</span>
-        <div style="display:flex; gap:clamp(18px,3vw,30px); align-items:center; flex-wrap:wrap;">
-          <div style="position:relative; flex:0 0 auto; width:clamp(118px,20vw,158px); aspect-ratio:1; border-radius:8px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 10px 22px rgba(50,44,99,.24); background:var(--indigo);">
-            <!-- 封面：放 uploads/cover-lament.jpg -->
-            <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--goldL); font-size:30px;">✦</span>
-            <img src="uploads/cover-lament.jpg" alt="Lament of Broken Ideals 封面" onerror="this.remove()" style="position:relative; width:100%; height:100%; object-fit:cover; display:block;">
-          </div>
-          <div style="flex:1 1 300px; min-width:250px;">
-            <h3 style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:clamp(23px,2.7vw,32px); color:var(--ink);">Lament of Broken Ideals</h3>
-            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:11px;">
-              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">赛尔号 - 不死魂王 同人曲</span>
-              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">电子音乐</span><span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">音游风</span>
-              <span style="font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;">ArtCore</span>
-            </div>
-            <!-- TODO: 这句文案是从上一首复制过来的，记得改成这首的介绍 -->
-            <p style="margin-top:14px; font-size:14px; line-height:1.85; color:var(--body); max-width:520px;">写给在废墟里还想唱歌的人——「Ashen」世界观的起点。</p>
-            <div style="display:flex; align-items:center; gap:14px; margin-top:20px;">
-              <button data-play="" style="flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border-radius:50%; background:var(--indigo); color:var(--goldL); border:1px solid var(--gold); cursor:pointer; font-size:15px; transition:transform .2s;">▶</button>
-              <div style="flex:1 1 auto;">
-                <div data-bar="" style="position:relative; height:6px; background:rgba(50,44,99,.14); border-radius:999px; cursor:pointer;">
-                  <div data-fill="" style="position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--gold),var(--goldL)); border-radius:999px;"></div>
-                  <div data-head="" style="position:absolute; top:50%; left:0%; transform:translate(-50%,-50%); font-size:13px; color:var(--gold); opacity:0; transition:opacity .2s;">✦</div>
-                </div>
-              </div>
-              <div data-time="" style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted); min-width:82px; text-align:right;">0:00 / 3:38</div>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
-              <!-- TODO: 换成完整版链接 -->
-              <a href="#" target="_blank" rel="noopener" style="font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;">Bilibili ↗</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- ══ 曲目单：点任意一首载入上面的播放器 ══
+           改文案 / 加作品：复制一整块 <div data-work> 改里面的 data-* 和可见标题即可。
+             data-audio 音频 · data-duration 秒 · data-desc 一句语境 · data-tags 逗号分隔标签
+             · data-cover 封面(可空) · data-netease / data-bili 完整版链接(可空) · data-badge 角标(可空)
+             · data-featured="1" 标记默认载入哪一首
+           注意：除「代表作」灰のユートピア 和 Lament 外，其余 data-desc / data-tags 是按曲名拟的【草稿】，请核对或替换成你自己的话。 -->
+      <div data-reveal="" style="font-family:'Cinzel',serif; letter-spacing:.28em; font-size:12px; color:var(--gold); margin:4px 2px 16px;">TRACKLIST · 全部作品</div>
+      <div data-reveal="" data-tracklist="">
 
-      <!-- PLACEHOLDERS -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
-        <div data-reveal="" data-reveal-delay="0" style="display:flex; gap:16px; align-items:center; background:transparent; border:1px dashed var(--line); border-radius:10px; padding:20px;">
-          <div style="flex:0 0 auto; width:64px; height:64px; border-radius:8px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel',serif; font-size:22px;">II</div>
-          <div><h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:16px; color:var(--ink);">虚位以待</h3><p style="margin-top:5px; font-size:13px; line-height:1.6; color:var(--muted);">下一首，也许就是为你的角色写的。</p></div>
+        <div data-work="" data-featured="1" data-audio="audio/hai-no-utopia.mp3" data-duration="36" data-badge="代表作" data-cover="uploads/cover-hai-no-utopia.jpg" data-netease="" data-bili="" data-tags="初音ミク,暗色 J-pop,Jazz Pop" data-desc="写给在废墟里还想唱歌的人——「Ashen」世界观的起点。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">灰のユートピア</span><span style="font-size:12px; color:var(--muted);">初音ミク · 暗色 J-pop</span><span style="font-size:11px; color:var(--goldL); background:var(--indigo); border:1px solid var(--gold); padding:2px 8px; border-radius:999px;">代表作</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">0:36</span>
         </div>
-        <div data-reveal="" data-reveal-delay="90" style="display:flex; gap:16px; align-items:center; background:transparent; border:1px dashed var(--line); border-radius:10px; padding:20px;">
-          <div style="flex:0 0 auto; width:64px; height:64px; border-radius:8px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel',serif; font-size:22px;">III</div>
-          <div><h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:16px; color:var(--ink);">虚位以待</h3><p style="margin-top:5px; font-size:13px; line-height:1.6; color:var(--muted);">你的创意，可以在这里长成一首歌。</p></div>
+        <div data-work="" data-audio="audio/zankyou-ni-tokeru-ai.mp3" data-duration="65" data-cover="uploads/cover-zankyou.jpg" data-netease="" data-bili="" data-tags="抒情,情歌,氛围" data-desc="余响里慢慢化开的爱——为一段说不出口的心动而写。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">残響に溶ける愛</span><span style="font-size:12px; color:var(--muted);">抒情 · 情歌</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">1:05</span>
         </div>
-        <div data-reveal="" data-reveal-delay="180" style="display:flex; gap:16px; align-items:center; background:transparent; border:1px dashed var(--line); border-radius:10px; padding:20px;">
-          <div style="flex:0 0 auto; width:64px; height:64px; border-radius:8px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Cinzel',serif; font-size:20px;">IV</div>
-          <div><h3 style="font-family:'Noto Serif SC',serif; font-weight:700; font-size:16px; color:var(--ink);">敬请期待</h3><p style="margin-top:5px; font-size:13px; line-height:1.6; color:var(--muted);">让歌姬唱的下一个故事，等你来讲。</p></div>
+        <div data-work="" data-audio="audio/sorrow-in-snow.mp3" data-duration="52" data-cover="uploads/cover-sorrow.jpg" data-netease="" data-bili="" data-tags="英文,氛围,抒情" data-desc="雪落无声，把悲伤轻轻盖住的一首英文氛围小品。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">Sorrow In Snow</span><span style="font-size:12px; color:var(--muted);">英文 · 氛围</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">0:52</span>
+        </div>
+        <div data-work="" data-audio="audio/kioku-sae-mo-boku-wo-suteta.mp3" data-duration="38" data-cover="uploads/cover-kioku.jpg" data-netease="" data-bili="" data-tags="暗色,情感" data-desc="连记忆都抛下了我——写给被留在原地的人。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">記憶さえも僕を捨てた</span><span style="font-size:12px; color:var(--muted);">暗色 · 情感</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">0:38</span>
+        </div>
+        <div data-work="" data-audio="audio/lone-star-holy-night.mp3" data-duration="43" data-cover="uploads/cover-holy-night.jpg" data-netease="" data-bili="" data-tags="明亮,节日,圣夜" data-desc="无瑕孤星降临的奇迹圣夜——明亮温暖的节日角色曲。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">無暇孤星☆降臨の奇跡聖夜</span><span style="font-size:12px; color:var(--muted);">明亮 · 节日</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">0:43</span>
+        </div>
+        <div data-work="" data-audio="audio/lament-of-broken-ideals.mp3" data-duration="43" data-badge="客单展示" data-cover="uploads/cover-lament.jpg" data-netease="" data-bili="" data-tags="赛尔号·不死魂王 同人,电子,音游风,ArtCore" data-desc="为「赛尔号 · 不死魂王」而作的同人曲——破碎理想的挽歌。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">Lament of Broken Ideals</span><span style="font-size:12px; color:var(--muted);">同人 · ArtCore</span><span style="font-size:11px; color:var(--goldL); background:var(--indigo); border:1px solid var(--gold); padding:2px 8px; border-radius:999px;">客单展示</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">0:43</span>
+        </div>
+        <div data-work="" data-audio="audio/ame-no-naka-de-aruiteru.mp3" data-duration="23" data-cover="uploads/cover-ame.jpg" data-netease="" data-bili="" data-tags="雨,忧郁,抒情" data-desc="在雨里独自走着——潮湿、安静的内心独白。" style="display:flex; align-items:center; gap:14px; padding:13px 18px; border:1px solid var(--line); border-radius:10px; background:var(--panel); cursor:pointer; transition:border-color .25s, background .25s, transform .2s; margin-bottom:10px;">
+          <span data-work-num="" style="flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:11px; transition:.2s;">▶</span>
+          <div style="flex:1 1 auto; min-width:0;"><div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;"><span data-work-title="" style="font-family:'Shippori Mincho',serif; font-weight:700; font-size:16px; color:var(--ink);">雨の中で歩いてる</span><span style="font-size:12px; color:var(--muted);">雨 · 忧郁</span></div></div>
+          <span style="flex:0 0 auto; font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);">0:23</span>
         </div>
       </div>
+      <p data-reveal="" style="text-align:center; margin-top:22px; font-size:13px; color:var(--muted);">▸ 站内为 30–60 秒试听片段　·　完整版请到各平台（每首可在上方播放器挂「网易云 / Bilibili」链接）</p>
+
     </div>
   </section>
 
@@ -487,7 +474,7 @@
     this._setupNav();
     this._setupResponsive();
     this._setupReveal();
-    this._setupAudio();
+    this._setupWorks();
     this._setupHeroListen();
     this._setupThemeToggle();
     this._setupModal();
@@ -654,98 +641,136 @@
 
   Site.prototype._fmt = function (s) { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
 
-  /* ── 播放器 ──
-     每个 [data-track] 可选带 data-audio="音频文件路径"。
-     · 有音频且能加载 → 真实播放（进度、拖动、时间都来自音频本身）。
-     · 没有 data-audio / 文件 404 / 格式不支持 → 自动退化为“演示进度条”（视觉走一遍，不出声）。
-     同一时间只播一首。                                             */
-  Site.prototype._setupAudio = function () {
+  /* ── 作品区 · 一个「重点位」大播放器 + 曲目单 ──
+     曲目单里每个 [data-work] 携带自己的 data-*（音频/时长/语境/标签/封面/链接/角标）。
+     点任意一首 → 载入上面的大播放器并播放；再点正在播的那首 → 暂停。
+     单一 <audio>、懒加载（首次播放前 0 音频请求）、支持 Range 即流式播放；
+     没有音频 / 404 → 自动退化为“演示进度条”。同一时间只播一首。 */
+  Site.prototype._setupWorks = function () {
     var self = this;
-    this._players = [];
-    document.querySelectorAll("[data-track]").forEach(function (track) {
-      if (track.dataset.audioInit) return;
-      track.dataset.audioInit = "1";
+    var root = document.getElementById("works"); if (!root) return;
+    var rows = Array.prototype.slice.call(root.querySelectorAll("[data-work]"));
+    if (!rows.length) return;
+    var fp = {
+      badge: root.querySelector("[data-fp-badge]"), cover: root.querySelector("[data-fp-cover]"),
+      title: root.querySelector("[data-fp-title]"), tags: root.querySelector("[data-fp-tags]"),
+      desc: root.querySelector("[data-fp-desc]"), play: root.querySelector("[data-fp-play]"),
+      bar: root.querySelector("[data-fp-bar]"), fill: root.querySelector("[data-fp-fill]"),
+      head: root.querySelector("[data-fp-head]"), time: root.querySelector("[data-fp-time]"),
+      links: root.querySelector("[data-fp-links]")
+    };
+    if (!fp.play || !fp.bar) return;
 
-      var btn  = track.querySelector("[data-play]");
-      var bar  = track.querySelector("[data-bar]");
-      var fill = track.querySelector("[data-fill]");
-      var head = track.querySelector("[data-head]");
-      var time = track.querySelector("[data-time]");
-      if (!btn || !bar || !fill || !head || !time) return;
+    var audio = null, audioBuilt = false;
+    var idx = -1, cur = 0, dur = 0, playing = false, last = 0, rafId = 0, hasReal = false;
 
-      var srcAttr = track.getAttribute("data-audio");
-      var dur = parseFloat(track.getAttribute("data-duration")) || 200;
-      var cur = 0, playing = false, last = 0, rafId = 0, hasReal = false;
-      var audio = null, audioBuilt = false;
-
-      var paint = function () {
-        var pct = dur ? Math.min(100, (cur / dur) * 100) : 0;
-        fill.style.width = pct + "%";
-        head.style.left = pct + "%";
-        time.textContent = self._fmt(cur) + " / " + self._fmt(dur);
-      };
-      var setBtn = function (p) {
-        btn.textContent = p ? "❚❚" : "▶";
-        btn.style.transform = p ? "scale(1.08)" : "scale(1)";
-        head.style.opacity = p ? "1" : "0";
-      };
-
-      // 懒加载：首次点「播放」之前，完全不产生任何音频网络请求（首屏 0 音频流量）。
-      var ensureAudio = function () {
-        if (audioBuilt || !srcAttr) return;
-        audioBuilt = true;
-        audio = new Audio();
-        audio.preload = "metadata";
-        audio.addEventListener("loadedmetadata", function () {
-          if (isFinite(audio.duration) && audio.duration > 0) { dur = audio.duration; hasReal = true; }
-          if (cur > 0) { try { audio.currentTime = cur; } catch (e) {} } // 播放前拖动过进度条 → 从该处开始
-          paint();
-        });
-        audio.addEventListener("timeupdate", function () { cur = audio.currentTime; paint(); });
-        audio.addEventListener("ended", function () { playing = false; cur = 0; setBtn(false); paint(); });
-        audio.addEventListener("error", function () { audio = null; hasReal = false; }); // 加载失败/404 → 退化为演示
-        audio.src = srcAttr;
-      };
-
-      var tick = function (t) {
-        if (!playing) return;
-        if (!last) last = t;
-        cur += (t - last) / 1000; last = t;
-        if (cur >= dur) { cur = 0; playing = false; setBtn(false); paint(); return; }
-        paint();
-        rafId = requestAnimationFrame(tick);
-      };
-      var startSim = function () { last = 0; rafId = requestAnimationFrame(tick); };
-
-      var api = {
-        play: function () {
-          self._players.forEach(function (p) { if (p !== api) p.stop(); });
-          ensureAudio();
-          playing = true; setBtn(true);
-          if (audio) { audio.play().catch(function () { startSim(); }); }
-          else startSim();
-        },
-        pause: function () {
-          playing = false; setBtn(false);
-          if (audio) audio.pause();
-          cancelAnimationFrame(rafId);
-        },
-        stop: function () { this.pause(); }
-      };
-      self._players.push(api);
-      if (!self._playFirst) self._playFirst = function () { api.play(); };
-
-      btn.addEventListener("click", function () { playing ? api.pause() : api.play(); });
-      bar.addEventListener("click", function (e) {
-        var rect = bar.getBoundingClientRect();
-        var ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        cur = ratio * dur;
-        if (audio && hasReal) audio.currentTime = cur;
-        paint();
+    function data(i, k) { return rows[i].getAttribute("data-" + k) || ""; }
+    function paint() {
+      var pct = dur ? Math.min(100, (cur / dur) * 100) : 0;
+      fp.fill.style.width = pct + "%"; fp.head.style.left = pct + "%";
+      fp.time.textContent = self._fmt(cur) + " / " + self._fmt(dur);
+    }
+    function refreshRows() {
+      rows.forEach(function (r, i) {
+        var num = r.querySelector("[data-work-num]"); var on = (i === idx);
+        r.style.borderColor = on ? "var(--gold)" : "var(--line)";
+        r.style.background = on ? "var(--panel2)" : "var(--panel)";
+        if (num) {
+          num.textContent = (on && playing) ? "❚❚" : "▶";
+          num.style.background = on ? "var(--gold)" : "transparent";
+          num.style.color = on ? "var(--indigo)" : "var(--gold)";
+        }
       });
+    }
+    function setPlayUI(p) {
+      playing = p;
+      fp.play.textContent = p ? "❚❚" : "▶";
+      fp.play.style.transform = p ? "scale(1.06)" : "scale(1)";
+      fp.head.style.opacity = p ? "1" : "0";
+      refreshRows();
+    }
+    function ensureAudio() {
+      if (audioBuilt) return; audioBuilt = true;
+      audio = new Audio(); audio.preload = "metadata";
+      audio.addEventListener("loadedmetadata", function () {
+        if (isFinite(audio.duration) && audio.duration > 0) { dur = audio.duration; hasReal = true; paint(); }
+      });
+      audio.addEventListener("timeupdate", function () { cur = audio.currentTime; paint(); });
+      audio.addEventListener("ended", function () { cur = 0; setPlayUI(false); paint(); });
+      audio.addEventListener("error", function () { hasReal = false; }); // 404/不支持 → 走演示
+    }
+    function syncSrc() {
+      if (!audio) return;
+      var want = idx >= 0 ? data(idx, "audio") : "";
+      if (want && audio.src.indexOf(want) === -1) audio.src = want;
+    }
+    function tick(t) {
+      if (!playing) return;
+      if (!last) last = t;
+      cur += (t - last) / 1000; last = t;
+      if (cur >= dur) { cur = 0; setPlayUI(false); paint(); return; }
+      paint(); rafId = requestAnimationFrame(tick);
+    }
+    function startSim() { last = 0; rafId = requestAnimationFrame(tick); }
 
+    function fill(i) {
+      idx = i; cur = 0; hasReal = false;
+      dur = parseFloat(data(i, "duration")) || 0;
+      var t = rows[i].querySelector("[data-work-title]");
+      fp.title.textContent = t ? t.textContent : "";
+      fp.badge.textContent = "✦ " + (data(i, "badge") || "正在播放");
+      fp.desc.textContent = data(i, "desc");
+      fp.tags.innerHTML = "";
+      data(i, "tags").split(",").forEach(function (tag) {
+        tag = tag.trim(); if (!tag) return;
+        var s = document.createElement("span"); s.textContent = tag;
+        s.style.cssText = "font-size:12px; letter-spacing:.04em; color:var(--gold); border:1px solid var(--line); padding:4px 12px; border-radius:999px;";
+        fp.tags.appendChild(s);
+      });
+      var cov = data(i, "cover");
+      if (cov) { fp.cover.onerror = function () { this.style.display = "none"; }; fp.cover.src = cov; fp.cover.style.display = "block"; }
+      else { fp.cover.removeAttribute("src"); fp.cover.style.display = "none"; }
+      fp.links.innerHTML = "";
+      [["网易云", data(i, "netease")], ["Bilibili", data(i, "bili")]].forEach(function (pr) {
+        if (!pr[1]) return;
+        var a = document.createElement("a"); a.href = pr[1]; a.target = "_blank"; a.rel = "noopener";
+        a.textContent = pr[0] + " ↗";
+        a.style.cssText = "font-size:12.5px; color:var(--gold); border:1px solid var(--line); padding:6px 14px; border-radius:999px;";
+        fp.links.appendChild(a);
+      });
+      syncSrc(); paint();
+    }
+    function play() {
+      ensureAudio(); syncSrc(); setPlayUI(true);
+      if (audio && idx >= 0 && data(idx, "audio")) audio.play().catch(function () { startSim(); });
+      else startSim();
+    }
+    function pause() { setPlayUI(false); if (audio) audio.pause(); cancelAnimationFrame(rafId); }
+    function toggle() { playing ? pause() : play(); }
+    function select(i, autoplay) {
+      if (i === idx) { toggle(); return; }
+      if (playing) pause();
+      fill(i); setPlayUI(false);
+      if (autoplay) play();
+    }
+
+    rows.forEach(function (r, i) {
+      r.addEventListener("click", function () { select(i, true); });
+      r.addEventListener("mouseenter", function () { if (i !== idx) r.style.borderColor = "var(--gold)"; });
+      r.addEventListener("mouseleave", function () { if (i !== idx) r.style.borderColor = "var(--line)"; });
+    });
+    fp.play.addEventListener("click", toggle);
+    fp.bar.addEventListener("click", function (e) {
+      var rect = fp.bar.getBoundingClientRect();
+      cur = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * dur;
+      if (audio && hasReal) audio.currentTime = cur;
       paint();
     });
+
+    var def = 0;
+    for (var k = 0; k < rows.length; k++) { if (rows[k].getAttribute("data-featured") === "1") { def = k; break; } }
+    fill(def); refreshRows();
+    self._playFirst = function () { play(); };
   };
 
   Site.prototype._setupHeroListen = function () {
