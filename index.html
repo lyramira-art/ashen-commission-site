@@ -13,14 +13,17 @@
 <meta property="og:image" content="uploads/hero.jpg">
 <meta name="theme-color" content="#f3e8d1">
 <link rel="preload" as="image" href="uploads/hero.jpg" fetchpriority="high">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<!-- 字体走 Google Fonts；国内可能慢/加载不出，会自动回退到系统衬线体。见 DEPLOY.md「字体」一节可换国内镜像。 -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Noto+Serif+SC:wght@400;500;600;700;900&amp;family=Shippori+Mincho:wght@500;700&amp;display=swap" rel="stylesheet">
+<!-- 字体：用 Google 官方中国节点（fonts.googleapis.cn / gstatic.cn），国内可达，比 .com（被限速到 ~7KB/s）快很多。
+     非阻塞加载（media=print → onload 切 all）：先用系统衬线体秒出字，网络字体到了再无缝替换，国内网慢也不白屏。
+     字重已砍到实际用到的；日文标题回退系统衬线体。想更极致可自托管子集，见 DEPLOY.md。 -->
+<link rel="preconnect" href="https://fonts.googleapis.cn">
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin="">
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.cn/css2?family=Cinzel:wght@500;600;700&amp;family=Noto+Serif+SC:wght@400;500;700;900&amp;display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.cn/css2?family=Cinzel:wght@500;600;700&amp;family=Noto+Serif+SC:wght@400;500;700;900&amp;display=swap"></noscript>
 <style>
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-  body{ background:#f3e8d1; color:#5c4832; font-family:"Noto Serif SC",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  body{ background:#f3e8d1; color:#5c4832; font-family:"Noto Serif SC","Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   a{ color:#b8892f; text-decoration:none; }
   a:hover{ color:#8c6520; }
   ::selection{ background:rgba(50,44,99,.22); color:#3c2a1a; }
