@@ -1,87 +1,98 @@
-# 上线指南（GitHub Pages + 腾讯 EdgeOne 国内加速）
+# 上线指南 · 面向中国访问（EdgeOne Pages）
 
-这是一个**纯静态网站**（一个 `index.html` + `uploads/` 图片 + `audio/` 音频），不需要任何构建。
-托管思路：**GitHub Pages 当源站（origin）→ 腾讯 EdgeOne 套在前面做国内 CDN 加速 → 绑你的子域名**。
+纯静态站（一个 `index.html` + `uploads/` + `audio/`），不需要构建。下面是"能不能让国内用户顺畅访问"的**结论 + 两条可落地路径**。
 
 ---
 
-## 第 1 步：开 GitHub Pages（源站）
+## 结论先行：国内能访问吗？——能，两条路
 
-仓库已经在 GitHub：`lyramira-art/ashen-commission-site`。把本地改动推上去后：
+| | 推荐路径（可靠 + 快） | Plan B（省事 · 不备案） |
+|---|---|---|
+| **做法** | 备案 + **EdgeOne Pages**（从 GitHub 自动部署）+ **中国大陆**加速区 | **EdgeOne Pages** + **全球（不含中国大陆）**加速区 |
+| **国内速度** | 真·国内边缘节点，快而稳 | 就近香港/东京，~100–250ms，可用但不稳 |
+| **要备案吗** | 要（一次性，见下） | **不用** |
+| **代价** | 备案约 3–20 个工作日的手续 | 国内体验打折，但**已是"不备案"里最好的** |
+
+两条路都用 **EdgeOne Pages**，因为它**只在构建时去 GitHub 拉代码**（在腾讯的构建机上），然后从自己的边缘节点吐页面——**规避了"国内边缘实时回源 GitHub 连不上"这个坑**。GitHub 依旧是你的代码仓库 + 一键推送部署，工作流不变。
+
+> ⚠️ **不要**让国内用户直连 `*.github.io`：慢、DNS 污染、偶尔不通，不适合正式站。
+> ⚠️ **不要**用 EdgeOne **CDN 回源到 GitHub Pages**：国内边缘连 GitHub 会 522（连不上源站）；长缓存能缓解、但缓存过期/未命中时仍会踩。用 **EdgeOne Pages** 就没这问题。
+> ⚠️ Cloudflare / Vercel / Netlify **免费版对国内都不行**（Cloudflare 免费把电信/联通导到美西 ~180ms+；Vercel/Netlify 无国内节点、默认域名可能被墙）。
+
+---
+
+## 第 1 步：代码推到 GitHub（源）
 
 ```bash
 git add -A
-git commit -m "网站 v3：压平设计稿为可上线静态站 + 真实播放器"
+git commit -m "更新网站"
 git push
 ```
+仓库：`lyramira-art/ashen-commission-site`。GitHub 在这套方案里只当"代码 + 触发部署"，不直接对访客服务。
 
-然后在网页上：**仓库 → Settings → Pages → Build and deployment**
-- Source：**Deploy from a branch**
-- Branch：**master** / **(root)** → Save
+## 第 2 步：EdgeOne Pages 连仓库、自动部署
 
-一两分钟后，源站地址就是 `https://lyramira-art.github.io/ashen-commission-site/`。
-先用这个地址确认页面/播放都正常，再接 EdgeOne。
+1. 腾讯云 **EdgeOne 控制台 → Pages（边缘 Pages）→ 创建项目 → 从 Git 导入**，授权并选中本仓库。
+2. **构建设置**：本站是纯 HTML，无需构建——**构建命令留空**，**输出目录填 `/`（根目录）**。
+3. 保存后，每次 `git push` 到部署分支，EdgeOne 会自动拉取并发布。先用它给的 `*.edgeone.app`（或临时域名）确认页面、播放、图片都正常。
 
-> 站点全部用**相对路径**（`uploads/…`、`audio/…`），所以不管是 github.io 子路径、子域名还是 CDN 回源，都能正常加载，无需改动。
+> 免费版够用（撰写时：500 次构建/月、5GB 存储、CDN 流量不计量）。这产品 2025-12 才正式商用、还在快速迭代，**免费额度以控制台当前为准**。
 
----
+## 第 3 步：绑你的子域名 + 选加速区
 
-## 第 2 步：腾讯 EdgeOne 加速 + 绑子域名
+在 Pages 项目里**添加自定义域名**（如 `www.mszook.art` 或 `music.mszook.art`），按提示在 DNS 加一条 CNAME，HTTPS 证书 EdgeOne 免费签发。**关键是"加速区"选哪个：**
 
-两种接法，二选一：
+- **已备案** → 选 **中国大陆** 或 **全球（含中国大陆）** → 国内节点直出（最优）。
+- **没备案** → 只能选 **全球（不含中国大陆）** → 国内走香港/东京，best-effort（Plan B）。
 
-### 方案 A（推荐·省事）：EdgeOne 回源到 GitHub Pages
-1. EdgeOne 控制台 → 添加站点（用你的主域名 `mszook.art`）。
-2. 加一条**域名接入 / 加速域名** = 你的子域名（例如 `music.mszook.art`）。
-3. **源站**填 `lyramira-art.github.io`，回源协议 HTTPS，**回源 HOST 也填 `lyramira-art.github.io`**（关键：GitHub 靠 HOST 找到是哪个站）。
-4. 按 EdgeOne 给的 CNAME，在你的域名 DNS 里把子域名 CNAME 过去。
-5. 在 EdgeOne 开 HTTPS（它能签发免费证书）。
+> 因为走 EdgeOne Pages 在控制台绑域名，仓库里**不需要** `CNAME` 文件。
 
-这样**不用**在 GitHub Pages 里设自定义域名，避开 GitHub 的强制跳转，最稳。
+### 备案怎么办（走推荐路径才需要）
 
-### 方案 B：直接用 EdgeOne Pages 托管（不经过 GitHub Pages）
-EdgeOne 有类似 Cloudflare Pages 的静态托管：连本仓库 → 构建命令留空、输出目录填 `/`（根目录）→ 绑子域名。国内节点直出，最快，但和 GitHub Pages 二选一即可。
+`.art` **可以备案**（已在阿里云/腾讯云的备案后缀放行名单里；工信部 2018 年已批复该后缀）。个人宣传站属**非经营性**，做**个人 ICP 备案**即可，不需要经营许可证。步骤：
 
-### ⚠️ 必看：ICP 备案
-用**中国大陆**节点加速自定义域名，域名需要 **ICP 备案**。
-- `mszook.art` 若还没备案：要么先走备案（通过腾讯云，约 1–3 周），要么 EdgeOne 加速区域先选**「全球（不含中国大陆）」**——能用、但国内不加速，等备案下来再切「中国大陆 / 全球」。
-- 备案要求域名在国内注册商名下，`.art` 目前可备案，具体以腾讯云 / 工信部名单为准。
+1. **把 `mszook.art` 转入国内注册商**（腾讯云 / DNSPod），完成**域名实名认证**。境外注册商（Namecheap/GoDaddy 等）名下的域名**不能直接备案**，转入是硬要求。
+2. **备一个腾讯云大陆资源**用来生成备案授权码：一台便宜的轻量应用服务器/CVM（大陆地域、包年包月、有公网 IP、时长≥3 个月）即可。（EdgeOne 套餐本身是否满足，以控制台当前规则为准。）
+3. **提交个人备案**：身份证 + 人脸/幕布核验；期间会有短信核验链接，**24 小时内**点。
+4. **时间**：平台初审 ~2 个工作日，之后省管局审核**最长 20 个工作日**（常更快）。
+5. 备案通过后，**30 天内**再办一次**公安备案**（法定要求）。
 
-> 如果你决定走**方案 A 且在 GitHub Pages 设自定义域名**，告诉我确切的子域名，我在仓库里加一个 `CNAME` 文件（内容就是那个子域名）。现在没加，是因为域名/接法还没定死。
+> 开工前建议再到 `domain.miit.gov.cn` 核对一次 `.art` 仍在名单（名单偶有变动）。
 
 ---
 
-## 第 3 步：把素材放进去（决定页面“满不满”）
+## 第 4 步：把素材放进去（决定页面"满不满"）
 
 网站已做成**你放文件就自动生效、不放就优雅占位**的样子。按需丢：
 
-| 放哪 | 文件 | 现在没有时的表现 |
+| 放哪 | 是什么 | 没有时的表现 |
 |---|---|---|
-| `audio/hai-no-utopia.mp3` | 代表作试听（建议 30–60s 预览） | 播放器退化为“演示进度条”，不出声 |
+| `audio/hai-no-utopia.mp3` | 代表作试听（建议 30–60s 预览） | 播放器退化为"演示进度条"，不出声 |
 | `audio/lament.mp3` | 客单作品试听 | 同上 |
 | `uploads/cover-hai.jpg` | 代表作封面 | 显示靛蓝底 + ✦ 占位 |
 | `uploads/cover-lament.jpg` | 客单作品封面 | 同上 |
 | `uploads/hero.jpg` | 首屏形象图 ＋ 头像 ＋ 社媒分享图（**共用一张、只下载一次**）| 已就位；换图直接替换此文件（约 1200px 宽、无透明） |
 | `uploads/qr-qq.png` / `uploads/qr-wx.png` | 委托弹窗二维码 | 显示「放 QQ / 微信二维码」文字占位 |
 
-改完 `git add -A && git commit && git push` 即可，EdgeOne 记得**刷新缓存**（或等缓存过期）。
+改完 `git add -A && git commit && git push`，EdgeOne Pages 自动重新部署。
 
 ---
 
 ## 待办清单（内容层面，上线前建议改）
 
-- [ ] **作品②文案**：`index.html` 里 “Lament of Broken Ideals” 的简介现在是从代表作复制过来的，改成这首自己的介绍。
+- [ ] **作品②文案**：`index.html` 里 "Lament of Broken Ideals" 的简介现在是从代表作复制过来的，改成这首自己的介绍。
 - [ ] **网易云 / Bilibili 链接**：作品卡片上的这两个按钮现在是 `href="#"`，换成完整版真实链接。
 - [ ] **联系方式核对**：QQ/微信/B站/抖音/小红书 账号，页面里现在是设计稿里的示例值，逐个确认。
-- [ ] **字体（国内速度）**：现在用 Google Fonts；国内可能慢/加载不出（会回退到系统衬线体，不影响可读）。想彻底解决：把 `<head>` 里那条 `fonts.googleapis.com` 换成国内镜像，或把用到的字重自托管到 `uploads/fonts/`。需要我做的话说一声。
-- [x] **主图已优化到位**：原 5.6MB PNG → `uploads/hero.jpg`（1200px、**266KB**，比原来小 ~21×）。首屏、头像、社媒分享图**全部共用这一张**，浏览器只下载一次。
+- [ ] **字体（国内速度）**：现在用 Google Fonts，国内慢/加载不出（会回退系统衬线体，不影响可读）。国内字体方案调研完我会给出最优做法（多半是"自托管中文子集 + 系统字体兜底，只网络加载小的拉丁标题字体"）。
+- [x] **主图已优化**：原 5.6MB → `uploads/hero.jpg`（1200px、266KB，首屏/头像/分享图共用一张、只下载一次）。
+- [x] **音频懒加载 + 首屏图预加载**：首屏 0 音频请求；点播才流式拉取。
 
 ---
 
 ## 本地预览
 
 ```bash
-python3 -m http.server 8000
-# 打开 http://localhost:8000/
+python3 -m http.server 8000        # 打开 http://localhost:8000/
 ```
-（老的 `Mszook 委托主场 v3.dc.html` 设计稿在浏览器里直接打开是**不完整**的——它依赖 Claude Design 的运行时。以本仓库的 `index.html` 为准。）
+或双击仓库里的 `预览网站.command`。
+（老的 `Mszook 委托主场 v3.dc.html` 直接打开是**不完整**的——它依赖 Claude Design 运行时。以本仓库 `index.html` 为准。）
