@@ -669,7 +669,7 @@
     if (!fp.play || !fp.bar) return;
 
     var audio = null, audioBuilt = false;
-    var idx = -1, cur = 0, dur = 0, playing = false, last = 0, rafId = 0, hasReal = false;
+    var idx = -1, cur = 0, dur = 0, playing = false, last = 0, rafId = 0, hasReal = false, dragging = false;
 
     function data(i, k) { return rows[i].getAttribute("data-" + k) || ""; }
     function paint() {
@@ -704,7 +704,7 @@
       audio.addEventListener("loadedmetadata", function () {
         if (isFinite(audio.duration) && audio.duration > 0) { dur = audio.duration; hasReal = true; paint(); }
       });
-      audio.addEventListener("timeupdate", function () { cur = audio.currentTime; paint(); });
+      audio.addEventListener("timeupdate", function () { if (dragging) return; cur = audio.currentTime; paint(); });
       audio.addEventListener("ended", function () { cur = 0; setPlayUI(false); paint(); });
       audio.addEventListener("error", function () { hasReal = false; }); // 404/不支持 → 走演示
     }
@@ -715,6 +715,7 @@
     }
     function tick(t) {
       if (!playing) return;
+      if (dragging) { last = 0; rafId = requestAnimationFrame(tick); return; }
       if (!last) last = t;
       cur += (t - last) / 1000; last = t;
       if (cur >= dur) { cur = 0; setPlayUI(false); paint(); return; }
@@ -769,12 +770,28 @@
       r.addEventListener("mouseleave", function () { if (i !== idx) r.style.borderColor = "var(--line)"; });
     });
     fp.play.addEventListener("click", toggle);
-    fp.bar.addEventListener("click", function (e) {
+    // 进度条：点击 + 拖动 定位（鼠标/触屏统一用 Pointer Events；父级加高触摸区，手机好戳、拖动不滚页）
+    var hit = fp.bar.parentElement || fp.bar;
+    hit.style.padding = "10px 0"; hit.style.cursor = "pointer"; hit.style.touchAction = "none";
+    function scrub(clientX) {
       var rect = fp.bar.getBoundingClientRect();
-      cur = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * dur;
-      if (audio && hasReal) audio.currentTime = cur;
-      paint();
+      var ratio = rect.width ? Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)) : 0;
+      cur = ratio * dur; paint();
+    }
+    hit.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      try { hit.setPointerCapture(e.pointerId); } catch (x) {}
+      scrub(e.clientX); e.preventDefault();
     });
+    hit.addEventListener("pointermove", function (e) { if (dragging) scrub(e.clientX); });
+    function endScrub(e) {
+      if (!dragging) return;
+      dragging = false;
+      if (e && typeof e.clientX === "number") scrub(e.clientX);
+      if (audio && hasReal) audio.currentTime = cur; else last = 0; // 松手才真正 seek；演示模式则让进度从新位置续
+    }
+    hit.addEventListener("pointerup", endScrub);
+    hit.addEventListener("pointercancel", function () { dragging = false; });
 
     var def = 0;
     for (var k = 0; k < rows.length; k++) { if (rows[k].getAttribute("data-featured") === "1") { def = k; break; } }
