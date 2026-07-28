@@ -13,14 +13,10 @@
 <meta property="og:image" content="uploads/hero.jpg">
 <meta name="theme-color" content="#f3e8d1">
 <link rel="preload" as="image" href="uploads/hero.jpg" fetchpriority="high">
-<!-- 字体：用 Google 官方中国节点（fonts.googleapis.cn / gstatic.cn），国内可达，比 .com（被限速到 ~7KB/s）快很多。
-     非阻塞加载（media=print → onload 切 all）：先用系统衬线体秒出字，网络字体到了再无缝替换，国内网慢也不白屏。
-     字重已砍到实际用到的；日文标题回退系统衬线体。想更极致可自托管子集，见 DEPLOY.md。 -->
-<link rel="preconnect" href="https://fonts.googleapis.cn">
-<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin="">
-<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.cn/css2?family=Cinzel:wght@500;600;700&amp;family=Noto+Serif+SC:wght@400;500;700;900&amp;display=swap">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.cn/css2?family=Cinzel:wght@500;600;700&amp;family=Noto+Serif+SC:wght@400;500;700;900&amp;display=swap"></noscript>
+<!-- 字体：Cinzel 自托管子集（可变字重 latin，~25KB，零外部请求）；中文/日文走系统衬线体栈（见下方 body font-family）。
+     2026-07-28 移除 Google Fonts 外部依赖：fonts.googleapis.cn 在 QQ 等内置 webview 会挂起 → 白屏。@font-face 定义见下方 <style>。 -->
 <style>
+  @font-face{ font-family:'Cinzel'; src:url('fonts/cinzel.woff2') format('woff2'); font-weight:400 900; font-style:normal; font-display:swap; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{ background:#f3e8d1; color:#5c4832; font-family:"Noto Serif SC","Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
@@ -812,7 +808,18 @@
     });
   };
 
-  var boot = function () { new Site(PROPS).mount(); };
+  var revealAllSafe = function () {
+    var els = document.querySelectorAll("[data-reveal]");
+    for (var i = 0; i < els.length; i++) {
+      if (getComputedStyle(els[i]).opacity === "0") { els[i].style.opacity = "1"; els[i].style.transform = "none"; }
+    }
+  };
+  var boot = function () {
+    try { new Site(PROPS).mount(); } catch (e) { revealAllSafe(); }
+    // 终极安全网：IntersectionObserver 在 QQ/老 webview 常不回调 → 强制显形，杜绝白屏
+    setTimeout(revealAllSafe, 800);
+    window.addEventListener("load", function () { setTimeout(revealAllSafe, 200); });
+  };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
