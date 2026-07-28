@@ -13,10 +13,12 @@
 <meta property="og:image" content="uploads/hero.jpg">
 <meta name="theme-color" content="#f3e8d1">
 <link rel="preload" as="image" href="uploads/hero.jpg" fetchpriority="high">
-<!-- 字体：Cinzel 自托管子集（可变字重 latin，~25KB，零外部请求）；中文/日文走系统衬线体栈（见下方 body font-family）。
-     2026-07-28 移除 Google Fonts 外部依赖：fonts.googleapis.cn 在 QQ 等内置 webview 会挂起 → 白屏。@font-face 定义见下方 <style>。 -->
+<!-- 字体（全部自托管子集，零外部请求）：Cinzel（可变 latin ~25KB）+ Noto Serif SC（可变 200–900，页面 687 汉字 ~256KB，撑起中文标题 900 粗体）；日文标题走系统衬线体栈。
+     2026-07-28 移除 Google Fonts 外部依赖：fonts.googleapis.cn 在 QQ 等内置 webview 会挂起 → 白屏；同时补回自托管中文字体，否则删 GF 后标题 900 会塌成宋体。@font-face 定义见下方 <style>。 -->
 <style>
   @font-face{ font-family:'Cinzel'; src:url('fonts/cinzel.woff2') format('woff2'); font-weight:400 900; font-style:normal; font-display:swap; }
+  /* Noto Serif SC 自托管子集（可变字重 200–900，页面 687 个汉字，~256KB）。删 Google Fonts 后中文标题的 900/700 会 fallback 到宋体、撑不起超粗字重，标题分量塌陷 → 必须自托管补回。 */
+  @font-face{ font-family:'Noto Serif SC'; src:url('fonts/noto-serif-sc.woff2') format('woff2'); font-weight:200 900; font-style:normal; font-display:swap; }
   /* Cinzel 元素普遍未写死 font-weight；可变字体会落到过细的 400。旧版 Google Fonts 只加载 500/600/700，无 weight 的元素实际渲染 500 —— 这里统一还原到 500。想整体加粗/变细，改此一个数即可。 */
   [style*="Cinzel"]{ font-weight:500; }
   *{ margin:0; padding:0; box-sizing:border-box; }
