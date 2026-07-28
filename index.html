@@ -17,6 +17,8 @@
      2026-07-28 移除 Google Fonts 外部依赖：fonts.googleapis.cn 在 QQ 等内置 webview 会挂起 → 白屏。@font-face 定义见下方 <style>。 -->
 <style>
   @font-face{ font-family:'Cinzel'; src:url('fonts/cinzel.woff2') format('woff2'); font-weight:400 900; font-style:normal; font-display:swap; }
+  /* Cinzel 元素普遍未写死 font-weight；可变字体会落到过细的 400。旧版 Google Fonts 只加载 500/600/700，无 weight 的元素实际渲染 500 —— 这里统一还原到 500。想整体加粗/变细，改此一个数即可。 */
+  [style*="Cinzel"]{ font-weight:500; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{ background:#f3e8d1; color:#5c4832; font-family:"Noto Serif SC","Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
