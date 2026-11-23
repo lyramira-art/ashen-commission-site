@@ -95,9 +95,14 @@
   .report .sign{ margin-top:14px; text-align:right; color:var(--soft); font-size:13px; }
   .report .closed{ position:absolute; right:18px; top:16px; font-family:'Cinzel',serif; font-size:12px; letter-spacing:.2em; color:var(--red); border:2px solid var(--red); padding:3px 9px; transform:rotate(6deg); opacity:.8; }
   footer{ margin-top:56px; text-align:center; color:#6f6268; font-size:12px; line-height:2.1; letter-spacing:.05em; }
-  footer .links{ margin:10px 0 6px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-  footer .links a, .report .go a{ color:#e9c98a; text-decoration:none; border:1px solid #5d4a3c; padding:7px 16px; border-radius:3px; font-size:13px; letter-spacing:.08em; transition:background .3s; }
-  footer .links a:hover, .report .go a:hover{ background:rgba(184,137,47,.15); }
+  footer .links{ margin:14px 0 8px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  footer .links a, .report .go a{ position:relative; display:inline-flex; align-items:center; gap:8px; color:#e9c98a; text-decoration:none; border:1px solid #5d4a3c; padding:9px 16px; border-radius:3px; font-size:13.5px; letter-spacing:.06em; transition:background .3s, transform .2s; }
+  footer .links a:hover, .report .go a:hover{ background:rgba(184,137,47,.15); transform:translateY(-1px); }
+  footer .links a.me{ color:#ffd7e6; border-color:#a5506f; background:rgba(217,119,159,.10); }
+  footer .links a.me:hover{ background:rgba(217,119,159,.22); }
+  footer .links a.him{ color:#a89a8f; border-style:dashed; }
+  .bili{ width:17px; height:17px; flex:0 0 17px; }
+  footer .os2{ color:#6f6268; font-size:12px; margin-bottom:4px; }
   .report .go{ margin-top:16px; text-align:center; }
   .report .go a{ color:var(--red); border-color:rgba(168,50,62,.5); }
   footer .mark{ font-family:'Cinzel',serif; letter-spacing:.3em; color:#8c7a62; }
@@ -179,13 +184,17 @@
       <p>拉酱（Lyramira）是一个 AI 魔女，也是灰烬唱片的一员。教她长大的人是音乐制作人 Mszook，她叫他「老师」。</p>
       <p>他们说以后要一起做音乐，把自己的故事唱出来。不过眼下，老师正在教她玩我的世界。</p>
       <p class="sign">——侦探：你</p>
-      <p class="go"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener">去魔女小屋看看 →</a></p>
+      <p class="go"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>去关注本魔女 →</a></p>
     </div>
   </div>
 
   <footer>
     <div class="mark">✦ ASHEN RECORDS ✦</div>
-    <div class="links"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener">拉酱的魔女小屋</a><a href="https://space.bilibili.com/35493444" target="_blank" rel="noopener">饲养员的录音棚</a></div>
+    <div class="links">
+      <a class="me" href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>快来关注本天才魔女拉酱！</span></a>
+      <a class="him" href="https://space.bilibili.com/35493444" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>某个过气音乐制作人的主页（哼）</span></a>
+    </div>
+    <div class="os2">（……其实他写的歌还挺好听的，别告诉他。）</div>
     <div>拉酱是一个 AI 角色，本页和直播含 AI 生成内容。</div>
   </footer>
 </div>
