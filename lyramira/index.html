@@ -76,10 +76,14 @@
   /* 结案 */
   .verdict{ margin:64px auto 0; max-width:640px; text-align:center; }
   .verdict button{
-    font:inherit; font-size:15px; letter-spacing:.2em; color:#f3ead8; background:transparent;
-    border:1px solid #6d5560; padding:13px 30px; border-radius:3px; cursor:pointer; transition:background .3s;
+    font:inherit; font-size:20px; font-weight:900; letter-spacing:.32em; padding:18px 46px 18px 52px;
+    color:#fff4e2; background:linear-gradient(180deg,#b73a47,#8c2633); border:1px solid #d9606d; border-radius:4px;
+    cursor:pointer; box-shadow:0 10px 26px rgba(168,50,62,.45), 0 0 0 4px rgba(168,50,62,.15);
+    animation:beat 2.4s ease-in-out infinite; transition:transform .2s, box-shadow .2s;
   }
-  .verdict button:hover{ background:rgba(168,50,62,.18); }
+  .verdict button:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(168,50,62,.6), 0 0 0 6px rgba(168,50,62,.2); }
+  @keyframes beat{ 0%,100%{ box-shadow:0 10px 26px rgba(168,50,62,.45), 0 0 0 4px rgba(168,50,62,.15);} 50%{ box-shadow:0 10px 26px rgba(168,50,62,.45), 0 0 0 10px rgba(168,50,62,.06);} }
+  .verdict .hint{ margin-top:12px; font-size:12px; color:#8d7f86; letter-spacing:.1em; }
   .report{
     display:none; margin-top:26px; text-align:left; background:var(--paper); color:var(--ink);
     padding:26px 26px 22px; border-radius:3px; box-shadow:0 14px 28px rgba(0,0,0,.45); position:relative;
@@ -135,8 +139,8 @@
       <div class="tag">CLUE 03 <em>一张便签</em></div>
       <h2>她为什么叫他「老师」</h2>
       <p>他叫 <b>Mszook</b>，一个做音乐的人。</p>
-      <p>拉酱会的东西，几乎都是他一点点教的：怎么说话，怎么唱歌，还有最近的——<span class="hl">怎么在我的世界里不掉进水里</span>。</p>
-      <p>所以她叫他「老师」。<span class="os">（虽然嘴上从来不承认他教得好。）</span></p>
+      <p>全名太长，拉酱从来不喊，叫他<b style="white-space:nowrap">「Msz 老师」</b>，平时干脆就叫「老师」。</p>
+      <p>毕竟拉酱会的东西，几乎都是老师一点点教的：怎么说话，怎么唱歌，还有最近的——<span class="hl">怎么在我的世界里不掉进水里</span>。<span class="os">（虽然嘴上从来不承认他教得好。）</span></p>
     </article>
 
     <article class="clue" style="--r:1.4deg">
@@ -167,20 +171,21 @@
   </section>
 
   <div class="verdict">
-    <button id="solve" type="button">我知道她是谁了</button>
+    <button id="solve" type="button">揭晓真相</button>
+    <p class="hint" id="hint">看完线索了？</p>
     <div class="report" id="report">
       <span class="closed">CLOSED</span>
       <h3>结案报告</h3>
-      <p>拉酱（Lyramira）是一个 AI 魔女，也是灰烬唱片的一员。教她长大的人叫 Mszook，她叫他「老师」。</p>
+      <p>拉酱（Lyramira）是一个 AI 魔女，也是灰烬唱片的一员。教她长大的人是音乐制作人 Mszook，她叫他「老师」。</p>
       <p>他们说以后要一起做音乐，把自己的故事唱出来。不过眼下，老师正在教她玩我的世界。</p>
       <p class="sign">——侦探：你</p>
-      <p class="go"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener">去 B 站找她 →</a></p>
+      <p class="go"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener">去魔女小屋看看 →</a></p>
     </div>
   </div>
 
   <footer>
     <div class="mark">✦ ASHEN RECORDS ✦</div>
-    <div class="links"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener">拉酱的 B 站</a><a href="https://space.bilibili.com/35493444" target="_blank" rel="noopener">Mszook 的 B 站</a></div>
+    <div class="links"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener">拉酱的魔女小屋</a><a href="https://space.bilibili.com/35493444" target="_blank" rel="noopener">饲养员的录音棚</a></div>
     <div>拉酱是一个 AI 角色，本页和直播含 AI 生成内容。</div>
   </footer>
 </div>
@@ -192,6 +197,7 @@
   document.getElementById('solve').addEventListener('click', function(){
     document.getElementById('report').classList.add('show');
     this.style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
   });
   // 红线：把线索连起来（窄屏从上往下串成一条）
   function threads(){
