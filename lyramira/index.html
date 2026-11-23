@@ -195,7 +195,7 @@
       <a class="him" href="https://space.bilibili.com/35493444" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>某个过气音乐制作人的主页（哼）</span></a>
     </div>
     <div class="os2">（……其实他写的歌还挺好听的，别告诉他。）</div>
-    <div>拉酱是一个 AI 角色，本页和直播含 AI 生成内容。</div>
+    <div>拉酱是一个 AI 角色，本页和直播含 AI 生成内容。本页使用访问统计。</div>
   </footer>
 </div>
 <script>
@@ -227,6 +227,13 @@
   }
   window.addEventListener('load', threads);
   window.addEventListener('resize', threads);
+</script>
+<!-- 腾讯云 RUM 访问统计（应用 mszook.com，业务系统 Ashen 监控；2026-11-23 加） -->
+<script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js"></script>
+<script>
+  if (typeof Aegis === 'function') {
+    new Aegis({ id: 'dWkJkcvPdmqoLdLaWl', hostUrl: 'https://rumt-zh.com', reportAssetSpeed: true });
+  }
 </script>
 </body>
 </html>

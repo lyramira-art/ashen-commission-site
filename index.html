@@ -414,6 +414,7 @@
   <footer style="padding:36px clamp(20px,5vw,60px); text-align:center; background:var(--indigo);">
     <div style="font-family:'Noto Serif SC',serif; font-weight:700; letter-spacing:.04em; font-size:18px; color:var(--goldL);">Mszook <span style="color:var(--pink);">✦</span></div>
     <div style="margin-top:9px; font-family:'Shippori Mincho',serif; font-size:14px; color:rgba(220,184,90,.7);">灰の中の、ひとつの温度。 —— 灰烬里的一点温度</div>
+    <div style="margin-top:10px; font-size:11px; color:rgba(220,184,90,.4);">本站使用访问统计</div>
   </footer>
 
   <!-- FLOATING BUTTONS -->
@@ -827,6 +828,13 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
+</script>
+<!-- 腾讯云 RUM 访问统计（应用 mszook.com，业务系统 Ashen 监控；2026-11-23 加） -->
+<script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js"></script>
+<script>
+  if (typeof Aegis === 'function') {
+    new Aegis({ id: 'dWkJkcvPdmqoLdLaWl', hostUrl: 'https://rumt-zh.com', reportAssetSpeed: true });
+  }
 </script>
 </body>
 </html>
