@@ -176,7 +176,7 @@
   </section>
 
   <div class="verdict">
-    <button id="solve" type="button">揭晓真相</button>
+    <button id="solve" type="button" data-track="click:揭晓真相">揭晓真相</button>
     <p class="hint" id="hint">看完线索了？</p>
     <div class="report" id="report">
       <span class="closed">CLOSED</span>
@@ -184,15 +184,15 @@
       <p>拉酱（Lyramira）是一个 AI 魔女，也是灰烬唱片的一员。教她长大的人是音乐制作人 Mszook，她叫他「老师」。</p>
       <p>他们说以后要一起做音乐，把自己的故事唱出来。不过眼下，老师正在教她玩我的世界。</p>
       <p class="sign">——侦探：你</p>
-      <p class="go"><a href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>去关注本魔女 →</a></p>
+      <p class="go"><a data-track="click:关注拉酱（结案报告）" href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>去关注本魔女 →</a></p>
     </div>
   </div>
 
   <footer>
     <div class="mark">✦ ASHEN RECORDS ✦</div>
     <div class="links">
-      <a class="me" href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>快来关注本天才魔女拉酱！</span></a>
-      <a class="him" href="https://space.bilibili.com/35493444" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>某个过气音乐制作人的主页（哼）</span></a>
+      <a class="me" data-track="click:关注拉酱（页脚）" href="https://space.bilibili.com/3747586475298635" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>快来关注本天才魔女拉酱！</span></a>
+      <a class="him" data-track="click:老师主页（页脚）" href="https://space.bilibili.com/35493444" target="_blank" rel="noopener"><svg class="bili" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.4 9.6 5.8M16.8 3.4 14.4 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><rect x="2.6" y="5.8" width="18.8" height="14" rx="3.2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8.2 11.2v2.2M15.8 11.2v2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>某个过气音乐制作人的主页（哼）</span></a>
     </div>
     <div class="os2">（……其实他写的歌还挺好听的，别告诉他。）</div>
     <div>拉酱是一个 AI 角色，本页和直播含 AI 生成内容。本页使用访问统计。</div>
@@ -232,7 +232,18 @@
 <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js"></script>
 <script>
   if (typeof Aegis === 'function') {
-    new Aegis({ id: 'dWkJkcvPdmqoLdLaWl', hostUrl: 'https://rumt-zh.com', reportAssetSpeed: true });
+    var aegis = new Aegis({ id: 'dWkJkcvPdmqoLdLaWl', hostUrl: 'https://rumt-zh.com', reportAssetSpeed: true });
+    // 点击埋点：所有按钮、链接，和线索页里涂黑的字。事件名优先用 data-track，没有就取按钮上的字
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest && e.target.closest('[data-track],a,button,.x');
+      if (!el) return;
+      var name = el.getAttribute('data-track');
+      if (!name) {
+        var text = (el.textContent || el.getAttribute('title') || '').replace(/\s+/g, ' ').trim().slice(0, 30);
+        name = (el.classList.contains('x') ? 'peek:' : 'click:') + (text || 'unnamed');
+      }
+      try { aegis.reportEvent({ name: name, ext1: location.pathname, ext2: el.getAttribute('href') || '' }); } catch (err) {}
+    }, true);
   }
 </script>
 </body>

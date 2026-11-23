@@ -833,7 +833,18 @@
 <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js"></script>
 <script>
   if (typeof Aegis === 'function') {
-    new Aegis({ id: 'dWkJkcvPdmqoLdLaWl', hostUrl: 'https://rumt-zh.com', reportAssetSpeed: true });
+    var aegis = new Aegis({ id: 'dWkJkcvPdmqoLdLaWl', hostUrl: 'https://rumt-zh.com', reportAssetSpeed: true });
+    // 点击埋点：所有按钮、链接，和线索页里涂黑的字。事件名优先用 data-track，没有就取按钮上的字
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest && e.target.closest('[data-track],a,button,.x');
+      if (!el) return;
+      var name = el.getAttribute('data-track');
+      if (!name) {
+        var text = (el.textContent || el.getAttribute('title') || '').replace(/\s+/g, ' ').trim().slice(0, 30);
+        name = (el.classList.contains('x') ? 'peek:' : 'click:') + (text || 'unnamed');
+      }
+      try { aegis.reportEvent({ name: name, ext1: location.pathname, ext2: el.getAttribute('href') || '' }); } catch (err) {}
+    }, true);
   }
 </script>
 </body>
