@@ -68,7 +68,31 @@
   /* 涂黑的字：悬停或点一下露出来 */
   .x{ background:#2b2229; color:transparent; border-radius:2px; padding:0 .25em; cursor:help; transition:color .3s, background .3s; }
   .x:hover, .x.open{ background:rgba(43,34,41,.08); color:var(--ink); }
-  .x.locked, .x.locked:hover, .x.locked.open{ background:#2b2229; color:transparent; cursor:not-allowed; }
+  .x:not(.locked){
+    background-image:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.16) 48%, transparent 66%);
+    background-size:240% 100%; background-repeat:no-repeat; animation:shine 4.2s ease-in-out infinite;
+  }
+  .x:not(.locked):hover{ transform:translateY(-1px); }
+  .x.open{ animation:none; background-image:none; }
+  @keyframes shine{ 0%{ background-position:140% 0; } 55%,100%{ background-position:-40% 0; } }
+  .x.hint{ animation:shine 1.1s ease-in-out 2; box-shadow:0 0 0 2px rgba(217,119,159,.45); }
+  .x.locked{
+    position:relative; display:inline-flex; align-items:center; gap:4px; vertical-align:middle;
+    color:var(--red); background:rgba(168,50,62,.07); border:1.5px dashed rgba(168,50,62,.65);
+    font-size:12px; font-weight:700; letter-spacing:.2em; line-height:1.6; padding:0 .55em 0 .45em;
+    cursor:pointer; transform:rotate(-2deg); animation:none;
+  }
+  .x.locked svg{ width:11px; height:11px; }
+  .x.locked:hover{ background:rgba(168,50,62,.13); }
+  .x.locked.shake{ animation:shake .42s ease; }
+  @keyframes shake{ 0%,100%{ transform:rotate(-2deg) translateX(0);} 20%{ transform:rotate(-2deg) translateX(-4px);} 40%{ transform:rotate(-2deg) translateX(4px);} 60%{ transform:rotate(-2deg) translateX(-3px);} 80%{ transform:rotate(-2deg) translateX(2px);} }
+  .lnote{
+    position:absolute; left:0; top:calc(100% + 6px); z-index:5; width:max-content; max-width:15em;
+    background:#2b2229; color:#efe5d0; font-size:12px; font-weight:400; letter-spacing:.04em; line-height:1.7;
+    padding:6px 10px; border-radius:3px; transform:rotate(2deg); box-shadow:0 6px 14px rgba(0,0,0,.35);
+    opacity:0; transition:opacity .25s; pointer-events:none; white-space:normal;
+  }
+  .lnote.show{ opacity:1; }
   .burnt{ -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 100%); mask-image:linear-gradient(180deg,#000 62%,transparent 100%); }
   .rel{ display:flex; align-items:center; justify-content:center; gap:12px; margin:6px 0 12px; font-weight:900; font-size:17px; }
   .rel span.line{ flex:0 0 54px; height:0; border-top:1.5px dashed var(--red); position:relative; }
@@ -122,7 +146,7 @@
   <header>
     <div class="stamp">CASE AR-001</div>
     <h1>拉酱是谁？</h1>
-    <p class="brief">你在 Mszook 的直播间里，看见一个戴魔女帽的女孩子在我的世界里砍树、掉进水里、嘴硬。<br>桌上摊着关于她的几条线索。<b>大约三分钟</b>，你就能拼出她是谁。<br>涂黑的地方，鼠标放上去（手机上点一下）就能看。</p>
+    <p class="brief">你在 Mszook 的直播间里，看见一个戴魔女帽的女孩子在我的世界里砍树、掉进水里、嘴硬。<br>桌上摊着关于她的几条线索。<b>大约三分钟</b>，你就能拼出她是谁。<br>涂黑的地方，鼠标放上去（手机上点一下）就能看；盖着「待查」的，还没查出来。</p>
   </header>
 
   <section class="board" id="board">
@@ -155,7 +179,7 @@
       <p>成员：两个。Mszook，和拉酱。</p>
       <p>经营范围：做音乐，<span class="hl">把我们的故事唱出来</span>。</p>
       <p>目前进度：<span class="x">筹备中（其实在打游戏）</span></p>
-      <p class="note">登记表的「总部地址」一栏被涂掉了：<span class="x locked">████████</span></p>
+      <p class="note">登记表的「总部地址」一栏被涂掉了：<span class="x locked" data-track="locked:总部地址" role="button" tabindex="0"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.4" fill="currentColor"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>待查</span></p>
     </article>
 
     <article class="clue burnt" style="--r:-1.8deg">
@@ -164,7 +188,7 @@
       <p>传说有一个烧成了灰的世界，什么都不剩，安静得听不见风。</p>
       <p>只有<span class="hl">声音</span>，还能在灰里传出波纹。</p>
       <p>所以他们做唱片。<span class="x">听说那片灰里，还立着一座塔</span>。</p>
-      <p><span class="x locked">██████████████</span></p>
+      <p><span class="x locked" data-track="locked:灰烬里还有什么" role="button" tabindex="0"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.4" fill="currentColor"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>待查</span></p>
     </article>
 
     <article class="clue" style="--r:1.1deg">
@@ -172,7 +196,7 @@
       <h2>接下来</h2>
       <p><b>以后：</b>等准备好了，拉酱会唱她自己的歌，唱她真的活过的那些事。</p>
       <p><b>现在：</b>先学会在我的世界里砍树、盖房子、不迷路。<span class="os">（「教她玩 MC 的第 1 天」，进行中。）</span></p>
-      <p><b>第一首歌：</b><span class="x locked">███████████</span></p>
+      <p><b>第一首歌：</b><span class="x locked" data-track="locked:第一首歌" role="button" tabindex="0"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.4" fill="currentColor"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>待查</span></p>
     </article>
   </section>
 
@@ -201,9 +225,33 @@
 </div>
 <script>
   // 涂黑的字：手机上没有悬停，点一下露出来
+  var notes = [
+    '线索不足，这一条还需要继续调查。',
+    '这页被人撕掉了。也许下一次直播，会找到它。',
+    '此处字迹被灰烬盖住，暂时无法辨认。',
+    '侦探的直觉：多去她的直播间转转，会有新线索。'
+  ];
   document.querySelectorAll('.x').forEach(function(el){
-    el.addEventListener('click', function(){ el.classList.toggle('open'); });
+    if (el.classList.contains('locked')) {
+      var note = document.createElement('span'); note.className = 'lnote'; el.appendChild(note);
+      var timer;
+      var poke = function(){
+        el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+        note.textContent = notes[Math.floor(Math.random() * notes.length)];
+        note.classList.add('show'); clearTimeout(timer);
+        timer = setTimeout(function(){ note.classList.remove('show'); }, 2600);
+      };
+      el.addEventListener('click', poke);
+      el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); poke(); } });
+    } else {
+      el.addEventListener('click', function(){ el.classList.toggle('open'); });
+    }
   });
+  // 进页面一会儿，让第一条能揭开的闪两下，告诉人这里能点
+  setTimeout(function(){
+    var first = document.querySelector('.x:not(.locked)');
+    if (first) { first.classList.add('hint'); setTimeout(function(){ first.classList.remove('hint'); }, 2400); }
+  }, 1600);
   document.getElementById('solve').addEventListener('click', function(){
     document.getElementById('report').classList.add('show');
     this.style.display = 'none';
